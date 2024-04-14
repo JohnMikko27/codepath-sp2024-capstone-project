@@ -1,9 +1,18 @@
 import supabase from "./client";
 
-const loader = async() => {
+const homeLoader = async() => {
   const { data } = await supabase
     .from("hoop-talk-posts")
     .select();
+  return data;
+};
+
+const detailLoader = async({ params }) => {
+  const { data } = await supabase
+    .from("hoop-talk-posts")
+    .select()
+    .eq("id", params.id);
+  // console.log(data);
   return data;
 };
 
@@ -13,4 +22,4 @@ const formatDate = (date) => {
   return formattedDate;
 };
 
-export { loader, formatDate };
+export { homeLoader, formatDate, detailLoader };

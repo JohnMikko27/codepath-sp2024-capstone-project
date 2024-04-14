@@ -3,8 +3,10 @@ import ReactDOM from "react-dom/client";
 import Root from "./routes/Root.jsx";
 import Home from "./routes/Home.jsx";
 import Create from "./routes/Create.jsx";
+import Details from "./routes/Details.jsx";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { homeLoader, detailLoader } from "./utils/utils.js";
 
 const router = createBrowserRouter([
   {
@@ -13,11 +15,17 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />
+        element: <Home />,
+        loader: homeLoader,
       },
       {
         path: "/create",
-        element: <Create />
+        element: <Create />,
+      },
+      {
+        path: "/details/:id",
+        element: <Details />,
+        loader: detailLoader,
       }
     ]
   },
