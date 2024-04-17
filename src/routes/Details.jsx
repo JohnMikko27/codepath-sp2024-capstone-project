@@ -8,6 +8,7 @@ const Details = () => {
   const data = useLoaderData();
   const navigate = useNavigate();
   const [upvotes, setUpvotes] = useState(data[0].upvotes);
+  const [comment, setComment] = useState("");
 
   const deleteData = async() => {
     await supabase
@@ -30,17 +31,50 @@ const Details = () => {
     }
   };
 
+  const handleChange = (e) => {
+    e.preventDefault();
+    setComment(e.target.value);
+    console.log(e.target.value);
+  };
+
+  const handleComment = async(e) => {
+    e.preventDefault();
+    console.log("handleComment");
+
+    // to get the latest comments
+    const { data: updatedData } = await supabase
+      .from("hoop-talk-posts")
+      .select();
+
+    await supabase
+      .from("hoop-talk-posts")
+      .update({ comments: [...(updatedData[0].comments || []), comment] })
+      .eq("id", data[0].id);
+      
+    setComment("");
+  };
+
   return (
-    <div>
-      <div>{data[0].title}</div>
-      <div>{data[0].description}</div>
-      <div>{formatDate(data[0].created_at)}</div>
-      <div>{upvotes}</div>
-      <ThumbsUp onClick={handleUpvote} className="hover:cursor-pointer"/>
-      <Link to={`/edit/${data[0].id}`}>
-        <Pencil />
-      </Link>
-      <Trash2 onClick={deleteData} className=" hover:cursor-pointer"/>
+    <div className="flex flex-col border-2 border-black border-solid row-start-2 row-end-8">
+      <div className="border-2 border-black border-solid flex ">
+        <div>{data[0].title}</div>
+        <div>{data[0].description}</div>
+        <div>{formatDate(data[0].created_at)}</div>
+        <div>{upvotes}</div>
+        <div>
+          <ThumbsUp onClick={handleUpvote} className="hover:cursor-pointer"/>
+          <Link to={`/edit/${data[0].id}`}>
+            <Pencil />
+          </Link>
+          <Trash2 onClick={deleteData} className=" hover:cursor-pointer"/>
+        </div>
+      </div>
+      <div>
+        <form onSubmit={handleComment}>
+          <input type="text" value={comment} onChange={handleChange} placeholder="Add a comment" className=""/>
+          <button type="submit">Comment</button>
+        </form>
+      </div>
     </div>
   );
 };
