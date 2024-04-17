@@ -22,7 +22,7 @@ const Edit = () => {
       .from("hoop-talk-posts")
       .update({ ...inputs })
       .eq("id", data[0].id);
-    setInputs({title: "", description: "", upvotes: 0});
+    setInputs({title: "", description: ""});
     navigate("/");
   };
 

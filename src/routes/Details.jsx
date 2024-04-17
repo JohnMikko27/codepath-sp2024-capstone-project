@@ -9,6 +9,7 @@ const Details = () => {
   const navigate = useNavigate();
   const [upvotes, setUpvotes] = useState(data[0].upvotes);
   const [comment, setComment] = useState("");
+  const [commentsArr, setCommentsArr] = useState([...data[0].comments]);
 
   const deleteData = async() => {
     await supabase
@@ -34,7 +35,6 @@ const Details = () => {
   const handleChange = (e) => {
     e.preventDefault();
     setComment(e.target.value);
-    console.log(e.target.value);
   };
 
   const handleComment = async(e) => {
@@ -46,11 +46,13 @@ const Details = () => {
       .from("hoop-talk-posts")
       .select();
 
-    await supabase
+    const { data: commentsData } = await supabase
       .from("hoop-talk-posts")
       .update({ comments: [...(updatedData[0].comments || []), comment] })
-      .eq("id", data[0].id);
-      
+      .eq("id", data[0].id)
+      .select();
+
+    setCommentsArr([...commentsData[0].comments]);
     setComment("");
   };
 
@@ -74,6 +76,13 @@ const Details = () => {
           <input type="text" value={comment} onChange={handleChange} placeholder="Add a comment" className=""/>
           <button type="submit">Comment</button>
         </form>
+      </div>
+      <div className="grid gap-2">
+        {commentsArr.map((comm, i) => {
+          return (
+            <div className="border-2 border-black border-solid" key={i}>{comm}</div>
+          );
+        })}
       </div>
     </div>
   );
