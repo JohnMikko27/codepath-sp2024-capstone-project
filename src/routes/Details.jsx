@@ -10,7 +10,7 @@ const Details = () => {
   const [upvotes, setUpvotes] = useState(data[0].upvotes);
   const [comment, setComment] = useState("");
   const [commentsArr, setCommentsArr] = useState([...data[0].comments]);
-
+  
   const deleteData = async() => {
     await supabase
       .from("hoop-talk-posts")
@@ -40,11 +40,14 @@ const Details = () => {
   const handleComment = async(e) => {
     e.preventDefault();
     console.log("handleComment");
-
+    if (comment === "") return;
+    
     // to get the latest comments
     const { data: updatedData } = await supabase
       .from("hoop-talk-posts")
-      .select();
+      .select()
+      .eq("id", data[0].id);
+    console.log(updatedData);
 
     const { data: commentsData } = await supabase
       .from("hoop-talk-posts")
@@ -87,5 +90,8 @@ const Details = () => {
     </div>
   );
 };
+
+// maybe i should put comments in a different table so that I can have comments 
+// and the number of upvotes of that comment
 
 export default Details;
