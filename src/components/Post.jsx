@@ -3,10 +3,11 @@ import { formatDate } from "../utils/utils";
 
 const Post = ({ title, date, upvotes, id }) => {
   return (
-    <div className="border-black border-solid border-2">
-      <Link to={`/details/${id}`}>
-        <div>{formatDate(date)}</div>
-        <div>{title}</div>
+    <div className="border-gray-400 border-solid border-1 bg-white 
+    px-8 py-4 rounded-sm hover:bg-slate-200  transition-all duration-200">
+      <Link className="" to={`/details/${id}`}>
+        <div className=" text-xs text-gray-400">{formatDate(date)}</div>
+        <div className="text-xl">{title}</div>
         {/* <div>{description}</div> */}
         <div>upvotes: {upvotes}</div>
       </Link>

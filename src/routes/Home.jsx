@@ -51,36 +51,40 @@ const Home = () => {
 
   // const 
   return (
-    <div className="">
-      <div className="flex gap-8">
+    <div className="px-20 flex flex-col gap-4 row-start-2 row-end-8">
+      <div className="flex gap-8 items-center">
         <form onSubmit={handleSubmit}>
           <input type="text" placeholder="Search post" value={input} 
             onChange={(e) => setInput(e.target.value)}
-            className="border-2 border-solid border-black"/>
+            className=" border-1 border-solid border-slate-400 rounded-sm px-2 py-1"/>
         </form>
         <button onClick={handleClick} 
-          className="border-2 border-solid border-black">
+          className="bg-white border-1 border-solid border-slate-400 rounded-sm px-2 py-1 
+          hover:bg-slate-950 hover:text-blue-300 transition-all duration-200">
             Latest
         </button>
         <button onClick={handleClick}
-          className="border-2 border-solid border-black">
+          className="bg-white border-1 border-solid border-slate-400 rounded-sm px-2 py-1
+          hover:bg-slate-950 hover:text-blue-300 transition-all duration-200">
             Popular
         </button>
         <button onClick={handleClick}
-          className="border-2 border-solid border-black">
+          className="bg-white border-1 border-solid border-slate-400 rounded-sm px-2 py-1
+          hover:bg-slate-950 hover:text-blue-300 transition-all duration-200">
             Oldest
         </button>
-
       </div>
 
-      {displayedData.length === 0 
-        ? <div className=""><i>Post with that title not found!</i></div> 
-        : displayedData.map((post) => {
-          return (
-            <Post key={post.id} title={post.title} 
-              date={post.created_at} upvotes={post.upvotes} id={post.id}/>
-          );
-        })}
+      <div className="grid overflow-hidden overflow-y-scroll gap-2 ">
+        {displayedData.length === 0
+          ? <div className=""><i>Post with that title not found!</i></div>
+          : displayedData.map((post) => {
+            return (
+              <Post key={post.id} title={post.title}
+                date={post.created_at} upvotes={post.upvotes} id={post.id}/>
+            );
+          })}
+      </div>
     </div>
   );
 };
