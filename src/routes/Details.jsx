@@ -60,30 +60,43 @@ const Details = () => {
   };
 
   return (
-    <div className="flex flex-col border-2 border-black border-solid row-start-2 row-end-8">
-      <div className="border-2 border-black border-solid flex ">
-        <div>{data[0].title}</div>
+    <div className="flex flex-col row-start-2 row-end-8 gap-4 bg-white 
+    px-8 py-4 rounded-sm ">
+      <div className="bg-slate-100 border-1 border-slate-100 border-solid flex flex-col px-4 py-2 gap-4">
+        <div className="text-xs text-gray-400">{formatDate(data[0].created_at)}</div>
+        <div className="text-xl font-semibold">{data[0].title}</div>
         <div>{data[0].description}</div>
-        <div>{formatDate(data[0].created_at)}</div>
-        <div>{upvotes}</div>
-        <div>
-          <ThumbsUp onClick={handleUpvote} className="hover:cursor-pointer"/>
-          <Link to={`/edit/${data[0].id}`}>
-            <Pencil />
-          </Link>
-          <Trash2 onClick={deleteData} className=" hover:cursor-pointer"/>
+        <div className="flex items-center justify-between gap-4">
+          <div className="flex justify-center items-center gap-1">
+            <div>{upvotes}</div>
+            <ThumbsUp onClick={handleUpvote} className="hover:cursor-pointer"/>
+          </div>
+          <div className="flex gap-4">
+            <Link to={`/edit/${data[0].id}`}>
+              <Pencil />
+            </Link>
+            <Trash2 onClick={deleteData} className=" hover:cursor-pointer"/>
+          </div>
         </div>
       </div>
       <div>
-        <form onSubmit={handleComment}>
-          <input type="text" value={comment} onChange={handleChange} placeholder="Add a comment" className=""/>
-          <button type="submit">Comment</button>
+        <form onSubmit={handleComment} className="grid gap-2">
+          <input type="text" value={comment} onChange={handleChange} placeholder="Add a comment" 
+            className=" h-12 border-1 border-slate-400 border-solid px-4 py-2 rounded-3xl"/>
+          <button type="submit" 
+            className=" px-4 py-2 border-1 border-slate-400 border-solid hover:underline
+          rounded-md bg-slate-950 text-blue-300 transition-all duration-200">
+            Comment
+          </button>
         </form>
       </div>
-      <div className="grid gap-2">
+      <div className="grid gap-2 ">
         {commentsArr.map((comm, i) => {
           return (
-            <div className="border-2 border-black border-solid" key={i}>{comm}</div>
+            <div 
+              className="border-1 border-gray-400 border-solid px-2 py-1 rounded-md"
+              key={i}>{comm}
+            </div>
           );
         })}
       </div>
