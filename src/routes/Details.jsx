@@ -60,7 +60,7 @@ const Details = () => {
   };
 
   return (
-    <div className="flex flex-col row-start-2 row-end-8 gap-4 bg-white 
+    <div className="flex flex-col row-start-2 row-end-8 gap-4 
     px-8 py-4 rounded-sm ">
       <div className="bg-slate-100 border-1 border-slate-100 border-solid flex flex-col px-4 py-2 gap-4">
         <div className="text-xs text-gray-400">{formatDate(data[0].created_at)}</div>
@@ -94,7 +94,7 @@ const Details = () => {
         {commentsArr.map((comm, i) => {
           return (
             <div 
-              className="border-1 border-gray-400 border-solid px-2 py-1 rounded-md"
+              className="bg-white border-1 border-gray-400 border-solid px-2 py-1 rounded-md"
               key={i}>{comm}
             </div>
           );

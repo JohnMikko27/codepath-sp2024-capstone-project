@@ -8,7 +8,7 @@ const Home = () => {
   const [displayedData, setDisplayedData] = useState([...data]);
   const [input, setInput] = useState("");
   // by default, the latest should be clicked
-  // const [clicked, setClicked] = useState("");
+  const [clicked, setClicked] = useState("");
   console.log(data);
 
   const handleClick = async(e) => {
@@ -19,18 +19,21 @@ const Home = () => {
         .select()
         .order("created_at", { ascending: false });
       setDisplayedData(newData);
+      setClicked("Latest");
     } else if (e.target.textContent === "Popular") {
       const { data: newData } = await supabase
         .from("hoop-talk-posts")
         .select()
         .order("upvotes", { ascending: false });
       setDisplayedData(newData);
+      setClicked("Popular");
     } else if (e.target.textContent === "Oldest") {
       const { data: newData } = await supabase
         .from("hoop-talk-posts")
         .select()
         .order("created_at", { ascending: true });
       setDisplayedData(newData);
+      setClicked("Oldest");
     }
   };
   
@@ -48,8 +51,7 @@ const Home = () => {
     }
     setInput("");
   };
-
-  // const 
+ 
   return (
     <div className="px-20 flex flex-col gap-4 row-start-2 row-end-8">
       <div className="flex gap-8 items-center">
@@ -59,18 +61,18 @@ const Home = () => {
             className=" border-1 border-solid border-slate-400 rounded-sm px-2 py-1"/>
         </form>
         <button onClick={handleClick} 
-          className="bg-white border-1 border-solid border-slate-400 rounded-sm px-2 py-1 
-          hover:bg-slate-950 hover:text-blue-300 transition-all duration-200">
+          className={`${clicked === "Latest" ? "bg-blue-300": "bg-white"} bg-white border-1 border-solid border-slate-400 rounded-sm px-2 py-1 
+          hover:bg-slate-950 hover:text-blue-300 transition-all duration-200`}>
             Latest
         </button>
         <button onClick={handleClick}
-          className="bg-white border-1 border-solid border-slate-400 rounded-sm px-2 py-1
-          hover:bg-slate-950 hover:text-blue-300 transition-all duration-200">
+          className={`${clicked === "Popular" ? "bg-blue-300": "bg-white"} bg-white border-1 border-solid border-slate-400 rounded-sm px-2 py-1 
+          hover:bg-slate-950 hover:text-blue-300 transition-all duration-200`}>
             Popular
         </button>
         <button onClick={handleClick}
-          className="bg-white border-1 border-solid border-slate-400 rounded-sm px-2 py-1
-          hover:bg-slate-950 hover:text-blue-300 transition-all duration-200">
+          className={`${clicked === "Oldest" ? "bg-blue-300": "bg-white"} bg-white border-1 border-solid border-slate-400 rounded-sm px-2 py-1 
+          hover:bg-slate-950 hover:text-blue-300 transition-all duration-200`}>
             Oldest
         </button>
       </div>
