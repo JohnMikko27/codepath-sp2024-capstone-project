@@ -27,8 +27,9 @@ const Edit = () => {
   };
 
   return (
-    <div>
+    <div className="row-start-2 row-end-8 grid justify-items-center items-center ">
       <Form handleSubmit={handleSubmit} handleChange={handleChange} inputs={inputs}/>
+      
     </div>
   );
 };

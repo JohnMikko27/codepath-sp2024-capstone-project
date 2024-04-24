@@ -66,7 +66,7 @@ const Details = () => {
         <div className="text-xs text-gray-400">{formatDate(data[0].created_at)}</div>
         <div className="text-xl font-semibold">{data[0].title}</div>
         <div>{data[0].description}</div>
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center justify-end gap-4">
           <div className="flex justify-center items-center gap-1">
             <div>{upvotes}</div>
             <ThumbsUp onClick={handleUpvote} className="hover:cursor-pointer"/>
