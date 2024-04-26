@@ -1,5 +1,7 @@
 # Web Development Final Project - _HoopTalk_
 
+[Live Demo](https://hoop-talk.netlify.app/)
+
 Submitted by: **John Mikko Velasquez**
 
 This web app: **Is a forum-like app for discussing basketball related things**
