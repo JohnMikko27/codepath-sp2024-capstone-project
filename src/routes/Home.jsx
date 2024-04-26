@@ -61,17 +61,17 @@ const Home = () => {
             className=" border-1 border-solid border-slate-400 rounded-sm px-2 py-1"/>
         </form>
         <button onClick={handleClick} 
-          className={`${clicked === "Latest" ? "bg-blue-300": "bg-white"} bg-white border-1 border-solid border-slate-400 rounded-sm px-2 py-1 
+          className={`${clicked === "Latest" ? "bg-blue-300": "bg-white"} border-1 border-solid border-slate-400 rounded-sm px-2 py-1 
           hover:bg-slate-950 hover:text-blue-300 transition-all duration-200`}>
             Latest
         </button>
         <button onClick={handleClick}
-          className={`${clicked === "Popular" ? "bg-blue-300": "bg-white"} bg-white border-1 border-solid border-slate-400 rounded-sm px-2 py-1 
+          className={`${clicked === "Popular" ? "bg-blue-300": "bg-white"} border-1 border-solid border-slate-400 rounded-sm px-2 py-1 
           hover:bg-slate-950 hover:text-blue-300 transition-all duration-200`}>
             Popular
         </button>
         <button onClick={handleClick}
-          className={`${clicked === "Oldest" ? "bg-blue-300": "bg-white"} bg-white border-1 border-solid border-slate-400 rounded-sm px-2 py-1 
+          className={`${clicked === "Oldest" ? "bg-blue-300": "bg-white"}  border-1 border-solid border-slate-400 rounded-sm px-2 py-1 
           hover:bg-slate-950 hover:text-blue-300 transition-all duration-200`}>
             Oldest
         </button>
