@@ -1,78 +1,44 @@
-# Web Development Final Project - _HoopTalk_
+# HoopTalk
 
-[Live Demo](https://hoop-talk.netlify.app/)
+This project was my capstone project from taking the Codepath Intermediate Web Development course.
+This app is a discussion-like forum centralized around basketball.
 
-Submitted by: **John Mikko Velasquez**
+## Description
 
-This web app: **Is a forum-like app for discussing basketball related things**
+This is a CRUD app where users can add, edit, delete posts, comment and upvote. Currently, there is no user auth so anyone can edit/delete any posts.
 
-Time spent: **10** hours spent in total
+### Future additions
 
-## Required Features
+- Add user authentication/authorization so that only the creators of the post can edit/delete them
 
-The following **required** functionality is completed:
+## Tech Stack
 
-- [x] **A create form that allows the user to create posts**
-- [x] **Posts have a title and optionally additional textual content and/or an image added as an external image URL**
-- [x] **A home feed displaying previously created posts**
-- [x] **By default, the time created, title, and number of upvotes for each post is shown on the feed**
-- [x] **Clicking on a post shall direct the user to a new page for the selected post**
-- [x] **Users can sort posts by either their created time or upvotes count**
-- [x] **Users can search for posts by title**
-- [x] **A separate post page for each created post, where any additional information is shown is linked whenever a user clicks a post**
-- [x] **Users can leave comments underneath a post on the post's separate page**
-- [x] **Each post should have an upvote button on the post's page. Each click increases its upvotes count by one and users can upvote any number of times**
-- [x] **A previously created post can be edited or deleted from its post page**
+- Vite
+- React
+- TailwindCSS
+- Supabase
+- Netlify
 
-The following **optional** features are implemented:
+## Installation
 
-- [ ] Users can only edit and deleted posts or delete comments by entering the secret key, which is set by the user during post creation
-- [ ] Upon launching the web app, the user is assigned a random user ID. It will be associated with all posts and comments that they make and displayed on them.
-- [ ] Users can repost a previous post by referencing its post ID. On the post page of the new post, the referenced post is displayed and linked, creating a thread
-- [ ] Users can customize the interface of the web app
-- [ ] Users can share and view web videos
-- [ ] Users can set flags while creating a post. Then users can filter posts by flags on the home feed.
-- [ ] Users can upload images directly from their local machine as an image file
-- [ ] Display a loading animation whenever data is being fetched
+First clone the project on your local machine and cd into:
 
-The following **additional** features are implemented:
+```
+git clone <url>
+cd codepath-sp2024-capstone-project
+```
 
-- [ ] List anything else that you added to improve the site's functionality!
+Then install dependencies and run the project:
 
-## Video Walkthrough
+```
+npm install
+npm run dev
+```
 
-Here's a walkthrough of implemented user stories:
+Local environment: http://localhost:5173/
 
-<img src='src/assets/web102-capstone.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+## CI/CD Pipeline
 
-<!-- Replace this with whatever GIF tool you used! -->
+This app is hosted with Netlify and any pushes to the main branch will automatically update the app
 
-GIF created with Kap
-
-<!-- Recommended tools:
-[Kap](https://getkap.co/) for macOS
-[ScreenToGif](https://www.screentogif.com/) for Windows
-[peek](https://github.com/phw/peek) for Linux. -->
-
-## Notes
-
-Describe any challenges encountered while building the app.
-
-- Inserting and updating the comments was where I had the most challenges; Just getting the right data and then using the spread operator and adding the new comment was difficult, but I completed it
-- Styling was hard; I need more work on my designing skills, so I just made it super simple
-
-## License
-
-    Copyright [2024] [John Mikko Velasquez]
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-        http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+Live Demo: https://hoop-talk.netlify.app/
