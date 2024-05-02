@@ -3,6 +3,8 @@
 This project was my capstone project from taking the Codepath Intermediate Web Development course.
 This app is a discussion-like forum centralized around basketball.
 
+Live Demo: https://hoop-talk.netlify.app/
+
 ## Description
 
 This is a CRUD app where users can add, edit, delete posts, comment and upvote. Currently, there is no user auth so anyone can edit/delete any posts.
@@ -40,5 +42,3 @@ Local environment: http://localhost:5173/
 ## CI/CD Pipeline
 
 This app is hosted with Netlify and any pushes to the main branch will automatically update the app
-
-Live Demo: https://hoop-talk.netlify.app/
