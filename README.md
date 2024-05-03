@@ -21,6 +21,20 @@ This is a CRUD app where users can add, edit, delete posts, comment and upvote. 
 - Supabase
 - Netlify
 
+## Video Walkthrough
+
+Here's a walkthrough of the app:
+
+<img src='src/assets/web102-capstone.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+<!-- Replace this with whatever GIF tool you used! -->
+
+GIF created with Kap
+
+## CI/CD Pipeline
+
+This app is hosted with Netlify and any pushes to the main branch will automatically update the app
+
 ## Installation
 
 First clone the project on your local machine and cd into:
@@ -38,7 +52,3 @@ npm run dev
 ```
 
 Local environment: http://localhost:5173/
-
-## CI/CD Pipeline
-
-This app is hosted with Netlify and any pushes to the main branch will automatically update the app
