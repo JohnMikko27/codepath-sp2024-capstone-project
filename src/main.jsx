@@ -5,6 +5,8 @@ import Home from "./routes/Home.jsx";
 import Create from "./routes/Create.jsx";
 import Details from "./routes/Details.jsx";
 import Edit from "./routes/Edit.jsx";
+import Login from "./routes/Login.jsx";
+import Signup from "./routes/Signup.jsx";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { homeLoader, detailLoader } from "./utils/utils.js";
@@ -32,6 +34,14 @@ const router = createBrowserRouter([
         path: "/edit/:id",
         element: <Edit />,
         loader: detailLoader,
+      },
+      {
+        path: "/login",
+        element: <Login />
+      },
+      {
+        path: "/signup",
+        element: <Signup />
       }
     ]
   },
