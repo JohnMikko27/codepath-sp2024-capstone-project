@@ -22,4 +22,13 @@ const formatDate = (date) => {
   return formattedDate;
 };
 
-export { homeLoader, formatDate, detailLoader };
+const signedInLoader = async() => {
+  const { data: { user } } = await supabase.auth.getUser();
+  console.log(user);
+  if (user) return true;
+  return false;
+};
+
+
+
+export { homeLoader, formatDate, detailLoader, signedInLoader };
