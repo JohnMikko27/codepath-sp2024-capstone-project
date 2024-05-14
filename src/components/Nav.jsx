@@ -4,7 +4,7 @@ import supabase from "../utils/client";
 import Profile from "./Profile";
 
 const Nav = () => {
-  const [isSignedIn, setIsSignedIn] = useState("false");
+  const [isSignedIn, setIsSignedIn] = useState();
   
   supabase.auth.onAuthStateChange((event, session) => {
     if (event === "SIGNED_IN") {
@@ -13,7 +13,7 @@ const Nav = () => {
       setIsSignedIn(false);
     } 
   });
-
+  
   return (
     <div className="flex gap-8 row-start-1 row-end-2 border-b-1 border-slate-500 border-solid
     justify-between items-center px-8 bg-slate-950 text-blue-300 shadow-sm shadow-slate-600">

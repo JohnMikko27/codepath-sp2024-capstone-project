@@ -10,7 +10,6 @@ const Details = () => {
   const [upvotes, setUpvotes] = useState(data[0].upvotes);
   const [comment, setComment] = useState("");
   const [commentsArr, setCommentsArr] = useState([...data[0].comments]);
-  
   const deleteData = async() => {
     await supabase
       .from("hoop-talk-posts")
@@ -72,10 +71,10 @@ const Details = () => {
             <ThumbsUp onClick={handleUpvote} className="hover:cursor-pointer"/>
           </div>
           <div className="flex gap-4">
-            <Link to={`/edit/${data[0].id}`}>
+            {data[0].isUser && <Link to={`/edit/${data[0].id}`}>
               <Pencil />
-            </Link>
-            <Trash2 onClick={deleteData} className=" hover:cursor-pointer"/>
+            </Link>}
+            {data[0].isUser && <Trash2 onClick={deleteData} className=" hover:cursor-pointer"/>}
           </div>
         </div>
       </div>

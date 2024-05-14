@@ -1,15 +1,22 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLoaderData } from "react-router-dom";
 import Form from "../components/Form";
 import supabase from "../utils/client";
 
 const Create = () => {
-  const [inputs, setInputs] = useState({title: "", description: "", upvotes: 0, comments: []});
+  const userData = useLoaderData();
+  const [inputs, setInputs] = useState({title: "", description: "", upvotes: 0, comments: [], userId: userData.id});
   const navigate = useNavigate();
+
+  // const h = async() => {
+
+  //   const { data: { user } } = await supabase.auth.getUser();
+  //   console.log(user);
+  // };
+  // h();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(`name is: ${name} and value is ${value}`);
     setInputs({...inputs, [name]: value});
   };
 

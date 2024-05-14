@@ -5,6 +5,7 @@ import supabase from "../utils/client";
 
 const Edit = () => {
   const data = useLoaderData();
+  console.log(data);
   const [inputs, setInputs] = useState({title: data[0].title, 
     description: data[0].description, upvotes: data[0].upvotes});
   console.log(data);
