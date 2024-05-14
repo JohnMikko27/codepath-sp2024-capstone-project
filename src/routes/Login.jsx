@@ -16,12 +16,11 @@ export default function Login() {
     e.preventDefault();
     
     try {
-      const { data } = await supabase.auth.signInWithPassword({
+      await supabase.auth.signInWithPassword({
         email: inputs.email,
         password: inputs.password,
       });
-      console.log(data);
-      navigate("/", {state: {signedIn: true}});
+      navigate("/");
       
     } catch (err) {
       console.log(err);

@@ -1,7 +1,7 @@
 import { CircleUserRound } from "lucide-react";
 import { useState } from "react";
 import supabase from "../utils/client";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, } from "react-router-dom";
 
 export default function Profile() {
   const [visible, setVisible]  = useState(false);
@@ -18,13 +18,13 @@ export default function Profile() {
     // in each post there will be a column called userId that holds the id of the account that created that post
     setVisible(false);
     console.log("signout");
-    navigate("/login", {state: {signedIn: false}});
+    navigate("/login");
   };
 
   return (
     <div className=" relative">
       <CircleUserRound className="hover:cursor-pointer" onClick={handleClick}/>
-      <div  onClick={handleClick} className={`flex flex-col bg-white text-black border-1 border-black absolute 
+      <div className={`flex flex-col bg-white text-black border-1 border-black absolute 
         w-24 justify-center right-0 top-8 ${visible ? "flex" : "hidden"}`}
       >
         <button className="border-bottom border-1">Profile</button>
