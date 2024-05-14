@@ -9,13 +9,12 @@ import Login from "./routes/Login.jsx";
 import Signup from "./routes/Signup.jsx";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { homeLoader, detailLoader, signedInLoader } from "./utils/utils.js";
+import { homeLoader, detailLoader, } from "./utils/utils.js";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
-    loader: signedInLoader,
     children: [
       {
         path: "/",

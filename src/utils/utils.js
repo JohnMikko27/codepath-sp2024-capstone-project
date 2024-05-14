@@ -12,7 +12,6 @@ const detailLoader = async({ params }) => {
     .from("hoop-talk-posts")
     .select()
     .eq("id", params.id);
-  // console.log(data);
   return data;
 };
 
@@ -22,13 +21,4 @@ const formatDate = (date) => {
   return formattedDate;
 };
 
-const signedInLoader = async() => {
-  const { data: { user } } = await supabase.auth.getUser();
-  console.log(user);
-  if (user) return true;
-  return false;
-};
-
-
-
-export { homeLoader, formatDate, detailLoader, signedInLoader };
+export { homeLoader, formatDate, detailLoader, };

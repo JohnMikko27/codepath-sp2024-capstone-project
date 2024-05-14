@@ -7,7 +7,6 @@ const Home = () => {
   const data = useLoaderData();
   const [displayedData, setDisplayedData] = useState([...data]);
   const [input, setInput] = useState("");
-  // by default, the latest should be clicked
   const [clicked, setClicked] = useState("");
   console.log(data);
 
