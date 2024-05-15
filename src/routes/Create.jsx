@@ -5,15 +5,12 @@ import supabase from "../utils/client";
 
 const Create = () => {
   const userData = useLoaderData();
-  const [inputs, setInputs] = useState({title: "", description: "", upvotes: 0, comments: [], userId: userData.id});
+  const [inputs, setInputs] = useState({title: "", description: "", upvotes: 0, comments: [], userId: userData.id, username: userData.user_metadata.username});
   const navigate = useNavigate();
 
-  // const h = async() => {
-
-  //   const { data: { user } } = await supabase.auth.getUser();
-  //   console.log(user);
-  // };
-  // h();
+  
+  // i think i correctly made the functionality where it shows who created the post
+  // but whenever i Refresh, the loggedin user is gone? why
 
   const handleChange = (e) => {
     const { name, value } = e.target;

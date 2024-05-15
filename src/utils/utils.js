@@ -13,15 +13,14 @@ const detailLoader = async({ params }) => {
     .select()
     .eq("id", params.id);
   try {
-    const { data: sessionData } = await supabase.auth.getSession(); // might have to put this part in a try catch block so that the catch block catches error and it doesnt show an error i think?
+    // user getUser instead of getSession? there might be a problem with session
+    const { data: sessionData } = await supabase.auth.getSession(); 
     sessionData.session.user.id === data[0].userId 
       ? data[0].isUser = true
       : data[0].isUser = false;
   } catch (err) {
     // added a try catch just so that it won't break the app if the user isn't currently logged in
   }
-  
-    
   
   return data;
 };

@@ -1,18 +1,31 @@
 import { Link, } from "react-router-dom";
-import { useState } from "react";
+import { useState, } from "react";
 import supabase from "../utils/client";
 import Profile from "./Profile";
 
 const Nav = () => {
   const [isSignedIn, setIsSignedIn] = useState();
   
+  const checkIfSignedIn = async() => {
+    const { data, error } = await supabase.auth.getSession();
+    console.log(data);
+    if (data.session !== null) {
+      setIsSignedIn(true);
+    } else {
+      setIsSignedIn(false);
+    }
+  };
+  
   supabase.auth.onAuthStateChange((event, session) => {
     if (event === "SIGNED_IN") {
-      setIsSignedIn(true);
+      console.log("signed in");
+      checkIfSignedIn();
     } else if (event === "SIGNED_OUT")  {
-      setIsSignedIn(false);
+      console.log("signed out");
+      checkIfSignedIn();
     } 
   });
+  checkIfSignedIn();
   
   return (
     <div className="flex gap-8 row-start-1 row-end-2 border-b-1 border-slate-500 border-solid

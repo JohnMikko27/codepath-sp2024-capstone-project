@@ -50,7 +50,14 @@ const Home = () => {
     }
     setInput("");
   };
- 
+
+  // const h = async() => {
+
+  //   const { data: { user } } = await supabase.auth.getUser();
+  //   console.log(user);
+  // };
+  // h();
+  // might need to add usernames?? so that I can put who created which post and who commented
   return (
     <div className="px-20 flex flex-col gap-4 row-start-2 row-end-8">
       <div className="flex gap-8 items-center">
@@ -81,7 +88,7 @@ const Home = () => {
           ? <div className=""><i>Post with that title not found!</i></div>
           : displayedData.map((post) => {
             return (
-              <Post key={post.id} title={post.title}
+              <Post key={post.id} title={post.title} username={post.username}
                 date={post.created_at} upvotes={post.upvotes} id={post.id}/>
             );
           })}
