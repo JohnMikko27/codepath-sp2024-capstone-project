@@ -8,7 +8,6 @@ const Home = () => {
   const [displayedData, setDisplayedData] = useState([...data]);
   const [input, setInput] = useState("");
   const [clicked, setClicked] = useState("");
-  console.log(data);
 
   const handleClick = async(e) => {
     // console.log("handleLatest clicked");
@@ -38,26 +37,21 @@ const Home = () => {
   
   const handleSubmit = async(e) => {
     e.preventDefault();
-    console.log("submit");
     const { data: newData } = await supabase
       .from("hoop-talk-posts")
       .select()
       .eq("title", input);
     if (newData.length === 0) {
       setDisplayedData([]);
+      setTimeout(() => {
+        setDisplayedData([...data]);
+      }, 2500);
     } else {
       setDisplayedData(newData);  
     }
     setInput("");
   };
 
-  // const h = async() => {
-
-  //   const { data: { user } } = await supabase.auth.getUser();
-  //   console.log(user);
-  // };
-  // h();
-  // might need to add usernames?? so that I can put who created which post and who commented
   return (
     <div className="px-20 flex flex-col gap-4 row-start-2 row-end-8">
       <div className="flex gap-8 items-center">
