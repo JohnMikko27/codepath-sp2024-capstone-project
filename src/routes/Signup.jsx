@@ -35,12 +35,21 @@ export default function Signup() {
 
   return (
     <div className="row-start-2 row-end-8 grid justify-items-center items-center">
-      <form onSubmit={handleSubmit} className="border-slate-400 border-1 grid gap-2 justify-self-center self-center p-8">
+      <form onSubmit={handleSubmit} className="border-slate-400 border-1 grid gap-4 
+      justify-self-center self-center p-8 w-1/4 rounded-sm">
         {/* <input type="text" placeholder="username" name="username" className="px-2 py-1"/> */}
-        <input value={inputs.username} type="text" placeholder="username" name="username" className="px-2 py-1" onChange={handleChange}/>
-        <input value={inputs.email} type="email" placeholder="email" name="email" className="px-2 py-1" onChange={handleChange}/>
-        <input value={inputs.password} type="password" placeholder="password" name="password" className="px-2 py-1" onChange={handleChange}/>
-        <button type="submit">Submit</button>
+        <div className="grid gap-2">
+          <input value={inputs.username} type="text" placeholder="username" name="username" 
+            className="px-2 py-1" onChange={handleChange}/>
+          <input value={inputs.email} type="email" placeholder="email" name="email" 
+            className="px-2 py-1" onChange={handleChange}/>
+          <input value={inputs.password} type="password" placeholder="password" name="password" 
+            className="px-2 py-1" onChange={handleChange}/>
+        </div>
+        <button type="submit" className="border-1 border-slate-400 hover:bg-slate-900 
+        hover:text-blue-400 transition-all duration-200 rounded-sm">
+          Submit
+        </button>
       </form>
     </div>
   );

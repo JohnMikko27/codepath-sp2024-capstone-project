@@ -17,6 +17,7 @@ const Details = () => {
       .eq("id", data[0].id);
     navigate("/");
   };
+  console.log(data);
 
   const handleUpvote = async() => {
     const { data: updatedData } = await supabase
@@ -62,9 +63,12 @@ const Details = () => {
     <div className="flex flex-col row-start-2 row-end-8 gap-4 
     px-8 py-4 rounded-sm ">
       <div className="bg-slate-100 border-1 border-slate-100 border-solid flex flex-col px-4 py-2 gap-4">
-        <div className="text-xs text-gray-400">{formatDate(data[0].created_at)}</div>
-        <div className="text-xl font-semibold">{data[0].title}</div>
-        <div>{data[0].description}</div>
+        <div className="flex justify-between">
+          <div className="text-md text-gray-400">Posted by: {data[0].username}</div>
+          <div className="text-md text-gray-400">{formatDate(data[0].created_at)}</div>
+        </div>
+        <div className="text-2xl font-semibold">{data[0].title}</div>
+        <div className="text-xl">{data[0].description}</div>
         <div className="flex items-center justify-end gap-4">
           <div className="flex justify-center items-center gap-1">
             <div>{upvotes}</div>

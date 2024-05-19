@@ -30,14 +30,22 @@ export default function Login() {
 
   return (
     <div className="row-start-2 row-end-8 grid justify-items-center items-center">
-      <form onSubmit={handleSubmit} className="border-slate-400 border-1 grid gap-2 justify-self-center self-center p-8">
-        <input type="text" placeholder="email" name="email" className="px-2 py-1" value={inputs.email} onChange={handleChange}/>
-        <input type="password" placeholder="password" name="password" className="px-2 py-1" value={inputs.password} onChange={handleChange}/>
-        <div className="flex gap-10">
-          <p className=" text-xs">Don&apos;t have an account yet?</p>
-          <Link to="/signup" className="text-xs text-blue-500">Create an account</Link>
+      <form onSubmit={handleSubmit} className="border-slate-400 border-1 grid gap-4 
+      justify-self-center self-center p-8 rounded-sm">
+        <div className="grid gap-2">
+          <input type="text" placeholder="email" name="email" className="px-2 py-1" 
+            value={inputs.email} onChange={handleChange}/>
+          <input type="password" placeholder="password" name="password" className="px-2 py-1" 
+            value={inputs.password} onChange={handleChange}/>
+          <div className="flex gap-10">
+            <p className=" text-xs">Don&apos;t have an account yet?</p>
+            <Link to="/signup" className="text-xs text-blue-500">Create an account</Link>
+          </div>
         </div>
-        <button type="submit">Submit</button>
+        <button type="submit" className="border-1 border-slate-400 hover:bg-slate-900 
+        hover:text-blue-400 transition-all duration-200 rounded-sm">
+          Submit
+        </button>
       </form>
     </div>
     

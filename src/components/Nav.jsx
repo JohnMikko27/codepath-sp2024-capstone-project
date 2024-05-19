@@ -8,7 +8,6 @@ const Nav = () => {
   
   const checkIfSignedIn = async() => {
     const { data, error } = await supabase.auth.getSession();
-    console.log(data);
     if (data.session !== null) {
       setIsSignedIn(true);
     } else {
