@@ -1,4 +1,5 @@
 import supabase from "./client";
+import Fuse from "fuse.js";
 
 const homeLoader = async() => {
   const { data } = await supabase
@@ -36,4 +37,17 @@ const getUserLoader = async() => {
   return user;
 };
 
-export { homeLoader, formatDate, detailLoader, getUserLoader};
+const fuzzySearch = async(s) => {
+  const data = await homeLoader();
+  const fuseOptions = {
+    shouldSort: true,
+    keys: [
+      "title",
+    ]
+  };
+  const fuse = new Fuse(data, fuseOptions);
+  console.log(fuse.search(s));
+  return fuse.search(s);
+};
+
+export { homeLoader, formatDate, detailLoader, getUserLoader, fuzzySearch };

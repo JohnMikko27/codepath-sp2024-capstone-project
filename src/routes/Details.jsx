@@ -107,7 +107,4 @@ const Details = () => {
   );
 };
 
-// maybe i should put comments in a different table so that I can have comments 
-// and the number of upvotes of that comment
-
 export default Details;
