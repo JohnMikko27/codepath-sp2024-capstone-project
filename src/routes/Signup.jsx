@@ -18,18 +18,15 @@ export default function Signup() {
       const { data, error } = await supabase.auth.signUp({
         email: inputs.email,
         password: inputs.password,
-        options : {
-          data: {
-            username: inputs.username
-          }
-        }
-      });
+      }, { data: {
+        username: inputs.username,
+      }});
       console.log(data);
       navigate("/");
       
     } catch (err) {
       console.log(err);
-      throw err;
+      navigate("/signup");
     }
   };
 
