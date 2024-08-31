@@ -42,8 +42,6 @@ const formatDate = (date) => {
 
 const getUserLoader = async() => {
   const { data: { user } } = await supabase.auth.getUser();
-  console.log("getuserloader");
-  console.log(user);
   return user;
 };
 

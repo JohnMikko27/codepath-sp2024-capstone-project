@@ -21,8 +21,6 @@ export default function Login() {
         email: inputs.email,
         password: inputs.password,
       });
-      console.log("error");
-      console.log(error);
       if (error) {
         setIsError(true);
         setInputs({ ...inputs, password: ""});

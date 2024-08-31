@@ -15,10 +15,11 @@ This is a CRUD app where users can add, edit, delete posts, comment and upvote. 
 
 ## Tech Stack
 
-- Vite
+- JavaScript
 - React
 - TailwindCSS
 - Supabase
+- Vite
 - Netlify
 
 ## Video Walkthrough
@@ -52,3 +53,7 @@ npm run dev
 ```
 
 Local environment: http://localhost:5173/
+
+## Example User
+- email: admin@admin.com
+- password: adminpassword
