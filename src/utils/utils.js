@@ -2,10 +2,18 @@ import supabase from "./client";
 import Fuse from "fuse.js";
 
 const homeLoader = async() => {
-  const { data } = await supabase
-    .from("hoop-talk-posts")
-    .select();
-  return data;
+  try {
+    const { data, error } = await supabase
+      .from("hoop-talk-posts")
+      .select();
+    console.log(data);
+    if (error) return [];
+    return data;
+  } catch (e) {
+    console.log(e);
+    return [];
+  }
+  
 };
 
 const detailLoader = async({ params }) => {
@@ -34,6 +42,8 @@ const formatDate = (date) => {
 
 const getUserLoader = async() => {
   const { data: { user } } = await supabase.auth.getUser();
+  console.log("getuserloader");
+  console.log(data);
   return user;
 };
 

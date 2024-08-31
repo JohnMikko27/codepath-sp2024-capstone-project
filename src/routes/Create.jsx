@@ -5,6 +5,7 @@ import supabase from "../utils/client";
 
 const Create = () => {
   const userData = useLoaderData();
+  // console.log(userData);
   const [inputs, setInputs] = useState({title: "", description: "", upvotes: 0, comments: [], userId: userData.id, username: userData.user_metadata.username});
   const navigate = useNavigate();
 

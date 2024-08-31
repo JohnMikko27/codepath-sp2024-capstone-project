@@ -5,6 +5,7 @@ import { useState } from "react";
 export default function Login() {
   const navigate = useNavigate();
   const [inputs, setInputs] = useState({email: "", password: ""});
+  const [isError, setIsError] = useState(false);
 
   const handleChange = (e) => {
     console.log(`${e.target.name}'s new value is: ${e.target.value}`);
@@ -16,12 +17,19 @@ export default function Login() {
     e.preventDefault();
     
     try {
-      await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email: inputs.email,
         password: inputs.password,
       });
-      navigate("/");
-      
+      console.log("error");
+      console.log(error);
+      if (error) {
+        setIsError(true);
+        setInputs({ ...inputs, password: ""});
+        return navigate("/login");
+      }
+      setIsError(false);
+      return navigate("/");
     } catch (err) {
       console.log(err);
       throw err;
@@ -33,6 +41,7 @@ export default function Login() {
       <form onSubmit={handleSubmit} className="border-slate-400 border-1 grid gap-4 
       justify-self-center self-center p-8 rounded-sm">
         <div className="grid gap-2">
+          {isError && <span className=" italic text-red-600">Incorrect username/password</span>}
           <input type="text" placeholder="email" name="email" className="px-2 py-1" 
             value={inputs.email} onChange={handleChange}/>
           <input type="password" placeholder="password" name="password" className="px-2 py-1" 

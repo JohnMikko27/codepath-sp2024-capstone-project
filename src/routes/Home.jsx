@@ -6,6 +6,7 @@ import { fuzzySearch } from "../utils/utils";
 
 const Home = () => {
   const data = useLoaderData();
+  console.log(data);
   const [displayedData, setDisplayedData] = useState([...data]);
   const [input, setInput] = useState("");
   const [clicked, setClicked] = useState("");
