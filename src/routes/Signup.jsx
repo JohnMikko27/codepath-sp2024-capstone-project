@@ -18,9 +18,12 @@ export default function Signup() {
       const { data, error } = await supabase.auth.signUp({
         email: inputs.email,
         password: inputs.password,
-      }, { data: {
-        username: inputs.username,
-      }});
+        options: {
+          data: {
+            username: inputs.username
+          }
+        }
+      });
       console.log(data);
       navigate("/");
       
