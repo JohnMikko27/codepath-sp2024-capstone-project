@@ -1,9 +1,8 @@
 export default function App() {
-
   return (
-    <div className=" ">
+    <div className="">
       hi miks
     </div>
-  )
+  );
 }
 
