@@ -1,21 +1,19 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Link, useNavigate} from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { UserContext } from "@/App";
 
 export default function Login() {
   const navigate = useNavigate();
   const [inputs, setInputs] = useState({username: "", password: ""});
   const [isError, setIsError] = useState(false);
+  const { setIsSignedIn } = useContext(UserContext);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(`${e.target.name}'s new value is: ${e.target.value}`);
     setInputs({...inputs, [e.target.name]: e.target.value});
   };
 
-  // when users logout, i should remove token from local storage
-  //   ADD TOKEN TO LOCAL STORAGE THEN COMMIT, AND WATCH OUT FOR EDGE CASES
-  //   E.G. username/password incorrect, removing token when logging out, etc. 
   const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -32,6 +30,7 @@ export default function Login() {
       const data = await response.json();
       localStorage.setItem("token", `Bearer ${data.token}`);
       console.log(data);
+      setIsSignedIn(true);
       navigate("/");
     } catch (e) {
       console.log(e);
