@@ -11,13 +11,13 @@ export default function Profile() {
   const handleClick = () => {
     setVisible(!visible);
   };
-  
+
   const handleSignout = async() => {
     setVisible(false);
     try {
       const response = await fetch("http://localhost:3000/logout");
       const data = await response.json();
-      // add some user feedback here
+      // add some user feedback here using data.message or something
       console.log(data);
       setIsSignedIn(false);
       localStorage.removeItem("token");

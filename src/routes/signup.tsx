@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
@@ -6,12 +5,12 @@ export default function Signup() {
   const navigate = useNavigate();
   const [inputs, setInputs] = useState({username: "", password: "", confirmPassword: ""});
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(`${e.target.name}'s new value is: ${e.target.value}`);
     setInputs({...inputs, [e.target.name]: e.target.value});
   };
 
-  const handleSubmit = async(e: any) => {
+  const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
     try {
       const response = await fetch("http://localhost:3000/signup", {
@@ -53,5 +52,3 @@ export default function Signup() {
     </div>
   );
 }
-
-

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Link, useNavigate} from "react-router-dom";
 import { useState, useContext } from "react";
 import { UserContext } from "@/App";
@@ -27,6 +26,10 @@ export default function Login() {
           password: inputs.password
         })
       });
+      if (response.status === 401) {
+        setIsError(true);
+      }
+      console.log(response);
       const data = await response.json();
       localStorage.setItem("token", `Bearer ${data.token}`);
       console.log(data);
@@ -42,11 +45,11 @@ export default function Login() {
       <form onSubmit={handleSubmit} className="border-slate-400 border-1 grid gap-4 
       justify-self-center self-center p-8 rounded-sm">
         <div className="grid gap-2">
-          {isError && <span className=" italic text-red-600">Incorrect username/password</span>}
           <input type="text" placeholder="username" name="username" className="px-2 py-1" 
             value={inputs.username} onChange={handleChange}/>
           <input type="password" placeholder="password" name="password" className="px-2 py-1" 
             value={inputs.password} onChange={handleChange}/>
+          {isError && <span className=" italic text-red-600">Incorrect username/password</span>}
           <div className="flex gap-10">
             <p className=" text-xs">Don&apos;t have an account yet?</p>
             <Link to="/signup" className="text-xs text-blue-500">Create an account</Link>
@@ -58,6 +61,5 @@ export default function Login() {
         </button>
       </form>
     </div>
-    
   );
 }
