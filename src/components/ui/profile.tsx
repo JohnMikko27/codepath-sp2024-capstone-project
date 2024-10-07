@@ -1,7 +1,7 @@
 import { CircleUserRound } from "lucide-react";
 import { useNavigate, } from "react-router-dom";
 import { useState, useContext } from "react";
-import { UserContext } from "@/App";
+import { UserContext } from "../../App";
 
 export default function Profile() {
   const navigate = useNavigate();

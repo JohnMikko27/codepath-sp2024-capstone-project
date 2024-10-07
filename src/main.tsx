@@ -8,6 +8,7 @@ import App from "./App.tsx";
 import "./index.css";
 import Login from "./routes/login.tsx";
 import Signup from "./routes/signup.tsx";
+import Create from "./components/ui/create.tsx";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: <Signup />
+      },
+      {
+        path: "/create",
+        element: <Create />
       }
     ]
   },
