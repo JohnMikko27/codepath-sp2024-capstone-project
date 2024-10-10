@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import Profile from "./profile";
-import { UserContext } from "../../App";
+import { UserContext } from "..//App";
 
 const Nav = () => {
   const { isSignedIn } = useContext(UserContext);

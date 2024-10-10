@@ -1,4 +1,4 @@
-import Nav from "./components/ui/nav";
+import Nav from "./components/nav";
 import { Outlet } from "react-router-dom";
 import React, { createContext, useState } from "react";
 

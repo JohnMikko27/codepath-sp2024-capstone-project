@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+ 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -13,28 +13,21 @@ const Create = () => {
 
   const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
-    // for some reason, req.user doesn't exist after i log in
-    // either i have to fix passport local and why it isn't saving my req.user in sessions or something
-    //  or just attach the user id to the post
-    // or just not use passportlocal strategy at all maybe
-
-    // AFTER TESTING IN POSTMAN, IT SEEMS THAT IT SSENDS BACK A COOKIE?? I GOTTA RESEARCH THAT
     // I THINK I HAVE TO SET THE COOKIE IN THE FRONTEND
-    // MAYBE I WILL JUST USE PASSPORT.JWT FOR AUTHENTICATION WITHOUT LOCAL STRATEGY??? NOT SURE
     const token = localStorage.getItem("token");
     const response = await fetch("http://localhost:3000/posts", {
       method: "POST",
+      // credentials: "include",
       headers: {
         "Content-Type": "application/json",
         "Authorization" : `${token}`,
       },
-      credentials: "include",
       body: JSON.stringify({...inputs})
     });
     console.log(response);
     const data = await response.json();
     console.log(data);
-    // navigate("/");
+    navigate("/");
   };
 
   return (
