@@ -10,6 +10,8 @@ import Login from "./routes/login.tsx";
 import Signup from "./routes/signup.tsx";
 import Create from "./components/create.tsx";
 import Home from "./routes/home.tsx";
+import Details from "./routes/details.tsx";
+import { detailsLoader } from "./utils/utils.ts";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +33,11 @@ const router = createBrowserRouter([
       {
         path: "/create",
         element: <Create />
+      },
+      {
+        path: "/details/:postId",
+        element: <Details />,
+        loader: detailsLoader
       }
     ]
   },
