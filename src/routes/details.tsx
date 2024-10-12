@@ -1,10 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useLoaderData, Link } from "react-router-dom";
 import { ThumbsUp, Pencil, Trash2 } from "lucide-react";
 import { useState } from "react";
+import { PostType } from "@/utils/types";
 
 export default function Details() {
-  const postData:any = useLoaderData();
+  const postData = useLoaderData() as PostType;
   const [comment, setComment] = useState("");
   const [commentsArr, setCommentsArr] = useState([...postData.comments]);
 
@@ -48,7 +48,7 @@ export default function Details() {
             <ThumbsUp className="hover:cursor-pointer"/>
           </div>
           <div className="flex gap-4">
-            {postData.author.username && <Link to={"/"}>
+            {postData.author.username && <Link to={`/edit/${postData.id}`}>
               <Pencil />
             </Link>}
             {postData.author.username && <Trash2 /*onClick={deleteData}*/ className=" hover:cursor-pointer"/>}
@@ -67,6 +67,7 @@ export default function Details() {
         </form>
       </div>
       <div className="grid gap-2 ">
+        {/* create a comment component */}
         {commentsArr.map((comm, i) => {
           return (
             <div 
