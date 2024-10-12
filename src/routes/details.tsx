@@ -1,10 +1,11 @@
-import { useLoaderData, Link } from "react-router-dom";
+import { useLoaderData, Link, useNavigate } from "react-router-dom";
 import { ThumbsUp, Pencil, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { PostType } from "@/utils/types";
 
 export default function Details() {
   const postData = useLoaderData() as PostType;
+  const navigate = useNavigate();
   const [comment, setComment] = useState("");
   const [commentsArr, setCommentsArr] = useState([...postData.comments]);
 
@@ -30,6 +31,21 @@ export default function Details() {
     setCommentsArr([...commentsArr, data]);
     setComment("");
   };
+
+  const handleDelete = async() => {
+    const token = localStorage.getItem("token");
+    const response = await fetch(`http://localhost:3000/posts/${postData.id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization" : `${token}`,
+      }
+    });
+    const data = await response.json();
+    if (data.status === 200) {
+      navigate("/");
+    }
+  };
   
   return (
     <div className="flex flex-col row-start-2 row-end-8 gap-4 
@@ -51,7 +67,7 @@ export default function Details() {
             {postData.author.username && <Link to={`/edit/${postData.id}`}>
               <Pencil />
             </Link>}
-            {postData.author.username && <Trash2 /*onClick={deleteData}*/ className=" hover:cursor-pointer"/>}
+            {postData.author.username && <Trash2 onClick={handleDelete} className=" hover:cursor-pointer"/>}
           </div>
         </div>
       </div>
