@@ -2,12 +2,16 @@ import { useLoaderData, Link, useNavigate } from "react-router-dom";
 import { ThumbsUp, Pencil, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { PostType } from "@/utils/types";
+import Comment  from "../components/comment";
+import { DateTime as dt } from "ts-luxon";
 
 export default function Details() {
   const postData = useLoaderData() as PostType;
   const navigate = useNavigate();
   const [comment, setComment] = useState("");
   const [commentsArr, setCommentsArr] = useState([...postData.comments]);
+
+  const formattedDate = dt.fromISO(postData.createdAt).toLocaleString(dt.DATE_SHORT);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -30,6 +34,7 @@ export default function Details() {
     const data = await response.json();
     setCommentsArr([...commentsArr, data]);
     setComment("");
+    navigate(`/details/${postData.id}`);
   };
 
   const handleDelete = async() => {
@@ -53,7 +58,7 @@ export default function Details() {
       <div className="bg-slate-100 border-1 border-slate-100 border-solid flex flex-col px-4 py-2 gap-4 rounded-sm">
         <div className="flex justify-between">
           <div className="text-md text-gray-400">Posted by: {postData.author.username}</div>
-          {/* <div className="text-md text-gray-400">{formatDate(data[0].created_at)}</div> */}
+          <div className="text-md text-gray-400">{formattedDate}</div>
         </div>
         <div className="text-2xl font-semibold">{postData.title}</div>
         <div className="text-xl">{postData.content}</div>
@@ -83,13 +88,9 @@ export default function Details() {
         </form>
       </div>
       <div className="grid gap-2 ">
-        {/* create a comment component */}
-        {commentsArr.map((comm, i) => {
+        {commentsArr.map((comment, i) => {
           return (
-            <div 
-              className="bg-white border-1 border-gray-400 border-solid px-2 py-1 rounded-md"
-              key={i}>{comm.content}
-            </div>
+            <Comment key={i} comment={comment} />
           );
         })}
       </div>

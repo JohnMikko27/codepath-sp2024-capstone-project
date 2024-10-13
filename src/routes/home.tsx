@@ -26,9 +26,7 @@ export default function Home() {
   return (
     <div className=" px-10 pb-10 grid gap-2">
       { posts.map((post: PostType, i: number) => {
-        return <Post key={i} id={post.id} title={post.title} createdAt={post.createdAt}
-          content={post.content} username={post.author.username} upvotes={0}
-
+        return <Post key={i} post={post}
         />;
       })}
     </div>
