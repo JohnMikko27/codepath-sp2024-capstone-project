@@ -25,9 +25,8 @@ export default function Home() {
 
   return (
     <div className=" px-10 pb-10 grid gap-2">
-      { posts.map((post: PostType, i: number) => {
-        return <Post key={i} post={post}
-        />;
+      { posts.length > 0 && posts.map((post: PostType, i: number) => {
+        return <Post key={i} post={post} />;
       })}
     </div>
   );

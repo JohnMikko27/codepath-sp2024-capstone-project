@@ -3,11 +3,12 @@ import { CommentType } from "@/utils/types";
 import { useState, useEffect } from "react";
 import { DateTime as dt } from "ts-luxon";
 
-export default function Comment({ comment } : {comment: CommentType}) {
+export default function Comment({ comment } : { comment: CommentType }) {
   const [author, setAuthor] = useState() as any;
   const formattedDate = dt.fromISO(comment.createdAt).toLocaleString(dt.DATE_SHORT);
-
+  
   useEffect(() => {
+    let first = true;
     const fetchAuthor = async() => {
       const token = localStorage.getItem("token");
       const response = await fetch(`http://localhost:3000/users/${comment.authorId}`, {
@@ -20,7 +21,13 @@ export default function Comment({ comment } : {comment: CommentType}) {
       const data = await response.json();
       setAuthor(data);
     };
-    fetchAuthor();
+    if (first) {
+      fetchAuthor();
+    }
+
+    return (() => {
+      first = false;
+    });
   }, []);
      
   return(

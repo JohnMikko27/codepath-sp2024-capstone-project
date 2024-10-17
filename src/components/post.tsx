@@ -2,9 +2,9 @@
 import { PostType } from "@/utils/types";
 import { Link } from "react-router-dom";
 import { DateTime as dt } from "ts-luxon";
+import { ThumbsUp } from "lucide-react";
 
-
-export default function Post( { post } : {post: PostType}) {
+export default function Post( { post } : { post: PostType }) {
   const formattedDate = dt.fromISO(post.createdAt).toLocaleString(dt.DATE_SHORT);
 
   return (
@@ -16,7 +16,15 @@ export default function Post( { post } : {post: PostType}) {
           <div className=" text-xs text-gray-400">{formattedDate}</div>
         </div>
         <div className="text-xl">{post.title}</div>
-        <div>upvotes: 0</div>
+        <div className="flex items-center gap-1">
+          <ThumbsUp size={16}
+            color="black"
+            fill={localStorage.getItem("user") 
+            && post.usersLiked.includes(JSON.parse(localStorage.getItem("user")!).id) 
+              ? "#3452eb" : "white"}
+          />
+          <div> {post.upvotes}</div>
+        </div>
       </Link>
     </div>
   );

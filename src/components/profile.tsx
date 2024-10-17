@@ -21,6 +21,7 @@ export default function Profile() {
       console.log(data);
       setIsSignedIn(false);
       localStorage.removeItem("token");
+      localStorage.removeItem("user");
     } catch (e) {
       console.log(e);
     }

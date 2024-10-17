@@ -10,6 +10,8 @@ const detailsLoader = async({ params }: { params: Params<string> }) => {
       },
     });
     const data = await response.json();
+    // take care of this error handling
+    // if (data.status !== 200) console.log("error");
     return data;
   } catch(e) {
     console.log(e);

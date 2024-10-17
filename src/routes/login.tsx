@@ -32,6 +32,7 @@ export default function Login() {
       console.log(response);
       const data = await response.json();
       localStorage.setItem("token", `Bearer ${data.token}`);
+      localStorage.setItem("user", JSON.stringify(data.user));
       console.log(data);
       setIsSignedIn(true);
       navigate("/");
