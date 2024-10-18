@@ -6,7 +6,7 @@ import { ThumbsUp } from "lucide-react";
 
 export default function Post( { post } : { post: PostType }) {
   const formattedDate = dt.fromISO(post.createdAt).toLocaleString(dt.DATE_SHORT);
-
+  
   return (
     <div className=" border-slate-300 border-solid border-1 bg-white 
         px-8 py-4 rounded-sm ">
@@ -23,7 +23,7 @@ export default function Post( { post } : { post: PostType }) {
             && post.usersLiked.includes(JSON.parse(localStorage.getItem("user")!).id) 
               ? "#3452eb" : "white"}
           />
-          <div> {post.upvotes}</div>
+          <div>{post.upvotes}</div>
         </div>
       </Link>
     </div>
