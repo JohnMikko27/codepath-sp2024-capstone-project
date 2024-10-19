@@ -26,14 +26,14 @@ export default function Login() {
           password: inputs.password
         })
       });
-      if (response.status === 401) {
-        setIsError(true);
-      }
-      console.log(response);
       const data = await response.json();
+      if (data.status === 401) {
+        setIsError(true);
+        return;
+      }
+
       localStorage.setItem("token", `Bearer ${data.token}`);
       localStorage.setItem("user", JSON.stringify(data.user));
-      console.log(data);
       setIsSignedIn(true);
       navigate("/");
     } catch (e) {
