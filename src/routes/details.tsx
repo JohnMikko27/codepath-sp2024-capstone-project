@@ -7,23 +7,12 @@ import { DateTime as dt } from "ts-luxon";
 
 export default function Details() {
   const postData = useLoaderData() as PostType;
-  const navigate = useNavigate();
   const [comment, setComment] = useState("");
   const [commentsArr, setCommentsArr] = useState([...postData.comments]);
+  const navigate = useNavigate();
   const formattedDate = dt.fromISO(postData.createdAt).toLocaleString(dt.DATE_SHORT);
-
-  // add like functionality
-  // I'll have to update the PostType to include upvotes and usersLiked
-  // then I'll have to check if the current user is in the usersLiked array, 
-  // to get the currentUser i'll have to call the get user route and check if it's in each usersLiked array in each post
-  // if so, then color it blue, 
-  // if not leave it the same
-
-  // the reason the comments were working earlier is because I changed the 
-  // response from the server to not include the newly created comment, I changed it back now
-  // maybe in the other post requests i should send the resource back if necessary 
-
-
+  const currentUser = JSON.parse(localStorage.getItem("user")!);
+  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setComment(e.target.value);
@@ -107,9 +96,6 @@ export default function Details() {
         <div className="text-xl">{postData.content}</div>
         <div className="flex items-center justify-end gap-4">
           <div className={"flex justify-center items-center gap-1 "}>
-            {/* <div>{upvotes}</div> */}
-            {/* add onclick on thumbs up to handle upvotes */}
-            
             <ThumbsUp className="hover:cursor-pointer" 
               color="black"
               fill={localStorage.getItem("user") 
@@ -119,11 +105,13 @@ export default function Details() {
             />
             <div>{postData.upvotes}</div>
           </div>
-          <div className="flex gap-4">
-            {postData.author.username && <Link to={`/edit/${postData.id}`}>
+          <div className={`gap-4 ${postData.authorId !== currentUser.id ? "hidden" : "flex"}`}>
+            {postData && 
+            <Link to={`/edit/${postData.id}`}>
               <Pencil />
             </Link>}
-            {postData.author.username && <Trash2 onClick={handleDelete} className=" hover:cursor-pointer"/>}
+            {postData && 
+            <Trash2 onClick={handleDelete} className=" hover:cursor-pointer"/>}
           </div>
         </div>
       </div>

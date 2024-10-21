@@ -13,6 +13,14 @@ export default function Login() {
     setInputs({...inputs, [e.target.name]: e.target.value});
   };
 
+  // I CAN EDIT EVEN THOUGH I'M NOT THE USER, MAKE SURE I FIX THIS WITH THE BACKEND
+  // actually this is with the frontend because clicking on the edit button goes to a new page but
+  // it doesnt call the api endpoint yet so check post.authorId and localstorage.user.id is the same
+  // I SHOULD ALSO NOW ADD EMAILS FOR SIGNING UP AND LOGGIN IN
+
+  // then add the loading spinners and add user feedback everytime a user logs in or signs up
+  // or when they create a post or comment, edit, delete, etc. 
+
   const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
     try {

@@ -8,22 +8,15 @@ export default function Home() {
   const [posts, setPosts] = useState([]);
   const [filter, setFilter] = useState("latest");
   const [input, setInput] = useState("");
-  console.log(filter);
-  // implement search bar
-  // search up how to i can search for a post with a specific id and a post(s) that contains some words
-  //
-  // SEARCH BAR FUNCTIONALITY FINISHED BUT I SHOULD IMPROVE IT BY ADDING A 
-  // DELAY SO THAT IT DOESN'T FETCH EVERY TIME THE INPUT CHANGES
-  // ALSO I SHOULD ADD A LOADING SPINNER
-  
+
   const handleChange = async(e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setInput(e.target.value);
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
     const fetchPosts = async () => {
+      const token = localStorage.getItem("token");
       let url = "http://localhost:3000/posts";
       if (input) {
         url += `?search=${input}`;
@@ -40,7 +33,15 @@ export default function Home() {
       const data = await response.json();
       setPosts(data);
     };
-    fetchPosts();
+
+    const intervalId = setTimeout(() => {
+      fetchPosts();
+    }, 500);
+
+    return (() => {
+      clearTimeout(intervalId);
+    });
+
   }, [input, filter]);
 
   return (
