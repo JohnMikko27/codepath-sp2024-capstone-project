@@ -1,12 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 export default function Signup() {
   const navigate = useNavigate();
   const [inputs, setInputs] = useState({username: "", password: "", confirmPassword: ""});
+  const { toast } = useToast();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(`${e.target.name}'s new value is: ${e.target.value}`);
     setInputs({...inputs, [e.target.name]: e.target.value});
   };
 
@@ -25,7 +26,10 @@ export default function Signup() {
         })
       });
       const data = await response.json();
+      console.log(response);
       console.log(data);
+      if (data.status !== 200) return;
+      toast({ title: data.message, className: "bg-green-600 text-white" });
       navigate("/login");
     } catch (e) {
       console.log(e);

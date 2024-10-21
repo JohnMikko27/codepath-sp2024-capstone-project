@@ -1,10 +1,12 @@
  
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 
 const Create = () => {
   const [inputs, setInputs] = useState({ title: "", content: ""});
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> ) => {
     const { name, value } = e.target;
@@ -12,21 +14,22 @@ const Create = () => {
   };
 
   const handleSubmit = async(e: React.FormEvent) => {
+    if (inputs.title === "") return;
     e.preventDefault();
-    // I THINK I HAVE TO SET THE COOKIE IN THE FRONTEND
     const token = localStorage.getItem("token");
     const response = await fetch("http://localhost:3000/posts", {
       method: "POST",
-      // credentials: "include",
       headers: {
         "Content-Type": "application/json",
         "Authorization" : `${token}`,
       },
       body: JSON.stringify({...inputs})
     });
-    console.log(response);
     const data = await response.json();
-    console.log(data);
+    if (data.status !== 200) {
+      return;
+    }
+    toast({ title: data.message, className: "bg-slate-950 text-white" });
     navigate("/");
   };
 
@@ -42,7 +45,8 @@ const Create = () => {
         </textarea>
         <button type="submit"
           className="border-slate-400 border-solid border-1 px-2 py-1 bg-slate-950 text-blue-300 
-        transition-all duration-200 hover:underline rounded-sm">
+        transition-all duration-200 hover:underline rounded-sm"
+        >
         Post
         </button>
       </form>

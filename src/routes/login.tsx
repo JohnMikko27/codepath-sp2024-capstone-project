@@ -1,20 +1,19 @@
 import { Link, useNavigate} from "react-router-dom";
 import { useState, useContext } from "react";
 import { UserContext } from "../App";
+import { useToast } from "@/hooks/use-toast";
 
 export default function Login() {
   const navigate = useNavigate();
   const [inputs, setInputs] = useState({username: "", password: ""});
   const [isError, setIsError] = useState(false);
   const { setIsSignedIn } = useContext(UserContext);
+  const { toast } = useToast();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(`${e.target.name}'s new value is: ${e.target.value}`);
     setInputs({...inputs, [e.target.name]: e.target.value});
   };
 
-  // I CAN EDIT EVEN THOUGH I'M NOT THE USER, MAKE SURE I FIX THIS WITH THE BACKEND
-  // actually this is with the frontend because clicking on the edit button goes to a new page but
   // it doesnt call the api endpoint yet so check post.authorId and localstorage.user.id is the same
   // I SHOULD ALSO NOW ADD EMAILS FOR SIGNING UP AND LOGGIN IN
 
@@ -35,13 +34,14 @@ export default function Login() {
         })
       });
       const data = await response.json();
-      if (data.status === 401) {
+      if (data.status !== 200) {
         setIsError(true);
         return;
       }
 
       localStorage.setItem("token", `Bearer ${data.token}`);
       localStorage.setItem("user", JSON.stringify(data.user));
+      toast({ title: data.message, className: "bg-green-600 text-white" });
       setIsSignedIn(true);
       navigate("/");
     } catch (e) {

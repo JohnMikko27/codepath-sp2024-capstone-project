@@ -4,12 +4,14 @@ import { useState } from "react";
 import { PostType } from "@/utils/types";
 import Comment  from "../components/comment";
 import { DateTime as dt } from "ts-luxon";
+import { useToast } from "@/hooks/use-toast";
 
 export default function Details() {
   const postData = useLoaderData() as PostType;
   const [comment, setComment] = useState("");
   const [commentsArr, setCommentsArr] = useState([...postData.comments]);
   const navigate = useNavigate();
+  const { toast } = useToast();
   const formattedDate = dt.fromISO(postData.createdAt).toLocaleString(dt.DATE_SHORT);
   const currentUser = JSON.parse(localStorage.getItem("user")!);
   
@@ -34,12 +36,12 @@ export default function Details() {
       });
       
       const data = await response.json();
-      if (data.status === 200) {
-        setCommentsArr([...commentsArr, data.comment]);
-        setComment("");
-        navigate(`/details/${postData.id}`);
+      if (data.status !== 200) {
         return;
       }
+      setCommentsArr([...commentsArr, data.comment]);
+      setComment("");
+      navigate(`/details/${postData.id}`);
     } catch (e) {
       console.log(e);
     }
@@ -56,9 +58,13 @@ export default function Details() {
         }
       });
       const data = await response.json();
-      if (data.status === 200) {
-        navigate("/");
+      if (data.status !== 200) {
+        return;
       }
+      console.log(response);
+      console.log(data);
+      toast({ title: data.message, className: "bg-slate-950 text-white" });
+      navigate("/");
     } catch (e) {
       console.log(e);
     }

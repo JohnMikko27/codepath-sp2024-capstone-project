@@ -1,12 +1,13 @@
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { PostType } from "@/utils/types";
 import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 export default function Edit() {
   const postData = useLoaderData() as PostType;
-  // add upvotes once I add it to api
   const [inputs, setInputs] = useState({ title: postData.title, content: postData.content });
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -26,7 +27,10 @@ export default function Edit() {
         body: JSON.stringify({...inputs})
       });
       const data = await response.json();
-      if (data.status === 200) navigate(`/details/${postData.id}`);
+      if (data.status !== 200) return;
+      toast({ title: data.message, className: "bg-slate-950 text-white" });
+      // ADD THE TOAST FOR DELETING AND CREATING A USER AND LOGGING IN
+      navigate(`/details/${postData.id}`);
     } catch(e) {
       console.log(e);
     }
