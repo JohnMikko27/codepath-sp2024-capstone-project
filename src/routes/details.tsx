@@ -5,6 +5,7 @@ import { PostType } from "@/utils/types";
 import Comment  from "../components/comment";
 import { DateTime as dt } from "ts-luxon";
 import { useToast } from "@/hooks/use-toast";
+import { Button } from "@/components/ui/button";
 
 export default function Details() {
   const postData = useLoaderData() as PostType;
@@ -61,8 +62,6 @@ export default function Details() {
       if (data.status !== 200) {
         return;
       }
-      console.log(response);
-      console.log(data);
       toast({ title: data.message, className: "bg-slate-950 text-white" });
       navigate("/");
     } catch (e) {
@@ -125,11 +124,7 @@ export default function Details() {
         <form onSubmit={handleComment} className="grid gap-2">
           <input type="text" value={comment} onChange={handleChange} placeholder="Add a comment" 
             className=" h-12 border-1 border-slate-400 border-solid px-4 py-2 rounded-3xl"/>
-          <button type="submit" 
-            className=" px-4 py-2 border-1 border-slate-400 border-solid hover:underline
-          rounded-md bg-slate-950 text-blue-300 transition-all duration-200">
-            Comment
-          </button>
+          <Button type="submit" className="">Comment</Button>
         </form>
       </div>
       <div className="grid gap-2 ">

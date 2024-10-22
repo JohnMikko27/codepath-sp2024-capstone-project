@@ -2,6 +2,7 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import { PostType } from "@/utils/types";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { Button } from "@/components/ui/button";
 
 export default function Edit() {
   const postData = useLoaderData() as PostType;
@@ -29,7 +30,6 @@ export default function Edit() {
       const data = await response.json();
       if (data.status !== 200) return;
       toast({ title: data.message, className: "bg-slate-950 text-white" });
-      // ADD THE TOAST FOR DELETING AND CREATING A USER AND LOGGING IN
       navigate(`/details/${postData.id}`);
     } catch(e) {
       console.log(e);
@@ -48,11 +48,18 @@ export default function Edit() {
           value={inputs.content} onChange={handleChange}
           className="border-slate-400 border-solid border-1 px-2 py-1 rounded-sm">
         </textarea>
-        <button type="submit"
-          className="border-slate-400 border-solid border-1 px-2 py-1 bg-slate-950 text-blue-300
-            transition-all duration-200 hover:underline rounded-sm">
-            Post
-        </button>
+        <div className="flex justify-between gap-4">
+          <Button type="button" onClick={() => navigate(-1)}
+            className="border-slate-400 border-solid border-1 px-2 py-1 
+              transition-all duration-200 hover:underline rounded-sm flex-1">
+                Cancel
+          </Button>
+          <Button type="submit"
+            className="border-slate-400 border-solid border-1 px-2 py-1 bg-green-700 text-white
+              transition-all duration-200 hover:underline rounded-sm hover:bg-green-600 flex-1">
+              Update
+          </Button>
+        </div>
       </form>
     </div>
   );

@@ -2,6 +2,7 @@ import { Link, useNavigate} from "react-router-dom";
 import { useState, useContext } from "react";
 import { UserContext } from "../App";
 import { useToast } from "@/hooks/use-toast";
+import { Button } from "@/components/ui/button";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -16,9 +17,6 @@ export default function Login() {
 
   // it doesnt call the api endpoint yet so check post.authorId and localstorage.user.id is the same
   // I SHOULD ALSO NOW ADD EMAILS FOR SIGNING UP AND LOGGIN IN
-
-  // then add the loading spinners and add user feedback everytime a user logs in or signs up
-  // or when they create a post or comment, edit, delete, etc. 
 
   const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
@@ -54,9 +52,11 @@ export default function Login() {
       <form onSubmit={handleSubmit} className="border-slate-400 border-1 grid gap-4 
       justify-self-center self-center p-8 rounded-sm">
         <div className="grid gap-2">
-          <input type="text" placeholder="username" name="username" className="px-2 py-1" 
+          <input type="text" placeholder="username" name="username" 
+            className="px-2 py-1 border-1 border-slate-400 border-solid rounded-sm" 
             value={inputs.username} onChange={handleChange}/>
-          <input type="password" placeholder="password" name="password" className="px-2 py-1" 
+          <input type="password" placeholder="password" name="password" 
+            className="px-2 py-1 border-1 border-slate-400 border-solid rounded-sm" 
             value={inputs.password} onChange={handleChange}/>
           {isError && <span className=" italic text-red-600">Incorrect username/password</span>}
           <div className="flex gap-10">
@@ -64,10 +64,7 @@ export default function Login() {
             <Link to="/signup" className="text-xs text-blue-500">Create an account</Link>
           </div>
         </div>
-        <button type="submit" className="border-1 border-slate-400 hover:bg-slate-900 
-        hover:text-blue-400 transition-all duration-200 rounded-sm">
-          Submit
-        </button>
+        <Button type="submit">Submit</Button>
       </form>
     </div>
   );

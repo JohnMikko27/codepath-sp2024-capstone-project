@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { Button } from "@/components/ui/button";
+
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -42,16 +44,13 @@ export default function Signup() {
       justify-self-center self-center p-8 w-1/4 rounded-sm">
         <div className="grid gap-2">
           <input value={inputs.username} type="text" placeholder="username" name="username" 
-            className="px-2 py-1" onChange={handleChange}/>
+            className="px-2 py-1 border-1 border-slate-400 border-solid rounded-sm" onChange={handleChange}/>
           <input value={inputs.password} type="password" placeholder="password" name="password" 
-            className="px-2 py-1" onChange={handleChange}/>
+            className="px-2 py-1 border-1 border-slate-400 border-solid rounded-sm" onChange={handleChange}/>
           <input value={inputs.confirmPassword} type="password" placeholder="confirm password" name="confirmPassword" 
-            className="px-2 py-1" onChange={handleChange}/>
+            className="px-2 py-1 border-1 border-slate-400 border-solid rounded-sm" onChange={handleChange}/>
         </div>
-        <button type="submit" className="border-1 border-slate-400 hover:bg-slate-900 
-        hover:text-blue-400 transition-all duration-200 rounded-sm">
-          Submit
-        </button>
+        <Button type="submit">Submit</Button>
       </form>
     </div>
   );

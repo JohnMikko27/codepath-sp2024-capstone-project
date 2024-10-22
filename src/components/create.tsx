@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
+import { Button } from "@/components/ui/button";
 
 const Create = () => {
   const [inputs, setInputs] = useState({ title: "", content: ""});
@@ -43,12 +44,17 @@ const Create = () => {
           value={inputs.content} onChange={handleChange} 
           className="border-slate-400 border-solid border-1 px-2 py-1 rounded-sm">
         </textarea>
-        <button type="submit"
-          className="border-slate-400 border-solid border-1 px-2 py-1 bg-slate-950 text-blue-300 
-        transition-all duration-200 hover:underline rounded-sm"
-        >
-        Post
-        </button>
+        <div className="flex justify-between gap-4">
+          <Button type="button" onClick={() => navigate(-1)}
+            className="border-slate-400 border-solid border-1 px-2 py-1 
+              transition-all duration-200 hover:underline rounded-sm flex-1">
+                Cancel
+          </Button>
+          <Button type="submit" 
+            className="bg-green-700 text-white hover:bg-green-600 flex-1">
+            Post
+          </Button>
+        </div>
       </form>
     </div>
   );
