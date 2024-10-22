@@ -6,6 +6,18 @@ import Comment  from "../components/comment";
 import { DateTime as dt } from "ts-luxon";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+
 
 export default function Details() {
   const postData = useLoaderData() as PostType;
@@ -116,7 +128,23 @@ export default function Details() {
               <Pencil />
             </Link>}
             {postData && 
-            <Trash2 onClick={handleDelete} className=" hover:cursor-pointer"/>}
+            <AlertDialog>
+              <AlertDialogTrigger><Trash2 className="hover:cursor-pointer"/></AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                  This action cannot be undone. This will permanently delete your post
+                  and remove your data from our servers.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction variant="destructive" onClick={handleDelete}>Delete</AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+            }
           </div>
         </div>
       </div>
