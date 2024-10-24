@@ -16,7 +16,8 @@ export interface PostType {
     authorId: number,
     comments: CommentType[]
     usersLiked: number[],
-    upvotes: number
+    upvotes: number,
+    imgUrl: string
 }
 
 export interface CommentType {

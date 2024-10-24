@@ -19,19 +19,17 @@ import {
 } from "@/components/ui/alert-dialog";
 
 export default function Details() {
-  const { data: postData, imgUrl } = useLoaderData() as { data: PostType, imgUrl: { publicUrl: string } };
+  const postData = useLoaderData() as PostType;
   const [comment, setComment] = useState("");
   const [commentsArr, setCommentsArr] = useState([...postData.comments]);
   const navigate = useNavigate();
   const { toast } = useToast();
   const formattedDate = dt.fromISO(postData.createdAt).toLocaleString(dt.DATE_SHORT);
   const currentUser = JSON.parse(localStorage.getItem("user")!);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setComment(e.target.value);
   };
-
   const handleComment = async(e: React.FormEvent) => {
     e.preventDefault();
     if (comment === "") return;
@@ -44,7 +42,7 @@ export default function Details() {
           "Content-Type": "application/json",
           "Authorization" : `${token}`,
         },
-        body: JSON.stringify({ content: comment})
+        body: JSON.stringify({ content: comment })
       });
       
       const data = await response.json();
@@ -110,9 +108,11 @@ export default function Details() {
         </div>
         <div className="text-2xl font-semibold">{postData.title}</div>
         <div className="text-xl">{postData.content}</div>
-        <img src={imgUrl.publicUrl} alt="Picture uploaded by author of post" 
-          className="w-20"
-        />
+        { 
+          postData.imgUrl && <img src={postData.imgUrl} alt="Picture uploaded by author of post" 
+            className="w-32"
+          /> 
+        }
         <div className="flex items-center justify-end gap-4">
           <div className={"flex justify-center items-center gap-1 "}>
             <ThumbsUp className="hover:cursor-pointer" 

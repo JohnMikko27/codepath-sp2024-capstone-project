@@ -16,7 +16,6 @@ export default function Home() {
     e.preventDefault();
     setInput(e.target.value);
   };
-  console.log(isLoading);
 
   useEffect(() => {
     setIsLoading(true);

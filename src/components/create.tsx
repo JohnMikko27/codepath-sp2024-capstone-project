@@ -4,9 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import supabase from "@/utils/client";
 import { LoadingContext } from "@/App";
 import LoadingSpinnerModal from "./ui/loadingSpinnerModal";
+import { v4 as v4uuid } from "uuid";
+import { uploadImage } from "@/utils/utils";
 
 const Create = () => {
   const [inputs, setInputs] = useState({ title: "", content: "", media: ""});
@@ -30,26 +31,30 @@ const Create = () => {
     if (inputs.title === "") return;
     setIsLoading(true);
     const token = localStorage.getItem("token");
+    const imageId = v4uuid();
+    const user = JSON.parse(localStorage.getItem("user")!);
     const response = await fetch("http://localhost:3000/posts", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Authorization" : `${token}`,
       },
-      body: JSON.stringify({...inputs})
+      body: JSON.stringify({
+        ...inputs, 
+        media: inputs.media !== "" 
+          ?`https://ekcnbalczcqlpckprbce.supabase.co/storage/v1/object/public/hooptalk-media/${user.id}/${imageId}` 
+          : ""
+      })
     });
     const data = await response.json();
     // should probably make util functions for uploading and getting images
     if (data.status !== 200) {
       return;
     }
-    const user = JSON.parse(localStorage.getItem("user")!);
-    const { error } = await supabase
-      .storage
-      .from("hooptalk-media")
-      .upload(user.id + "/" + data.post.id, inputs.media);
+    if (inputs.media !== "") {
+      uploadImage(user.id, imageId, inputs.media);
+    }
     
-    if (error) console.log(error);
     setIsLoading(false);
     toast({ title: data.message, className: "bg-slate-950 text-white" });
     navigate("/");
