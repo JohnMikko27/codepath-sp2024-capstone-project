@@ -1,22 +1,22 @@
 import Post from "@/components/post";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { PostType } from "@/utils/types";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { LoadingSpinner } from "@/components/ui/loadingSpinner";
+import LoadingSpinnerModal  from "@/components/ui/loadingSpinnerModal";
+import { LoadingContext } from "@/App";
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
-  console.log(posts);
   const [filter, setFilter] = useState("latest");
   const [input, setInput] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  console.log(isLoading);
+  const { isLoading, setIsLoading } = useContext(LoadingContext);
   
   const handleChange = async(e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setInput(e.target.value);
   };
+  console.log(isLoading);
 
   useEffect(() => {
     setIsLoading(true);
@@ -62,7 +62,7 @@ export default function Home() {
       </div>
       <div className="grid gap-2">
         { isLoading 
-          ? <LoadingSpinner className=" absolute top-32 left-80 h-1/2 w-1/2 opacity-50"/> 
+          ? <LoadingSpinnerModal /> 
           : posts.length > 0 && posts.map((post: PostType, i: number) => {
             return <Post key={i} post={post} />;
           })}

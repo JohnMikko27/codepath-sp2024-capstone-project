@@ -28,3 +28,11 @@ export const LoadingSpinner = ({
     </svg>
   );
 };
+
+export default function LoadingSpinnerModal() {
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+      <LoadingSpinner size={100} className="text-white" />
+    </div>
+  );
+}

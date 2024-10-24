@@ -1,14 +1,16 @@
  
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import supabase from "@/utils/client";
-// import { v4 as uuidv4 } from "uuid";
+import { LoadingContext } from "@/App";
+import LoadingSpinnerModal from "./ui/loadingSpinnerModal";
 
 const Create = () => {
   const [inputs, setInputs] = useState({ title: "", content: "", media: ""});
+  const { isLoading, setIsLoading } = useContext(LoadingContext);
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -23,12 +25,10 @@ const Create = () => {
     }
   };
 
-  // might have to add my jwt scret into supabase 
-  // and might have to change to something longer because it needs to be 32 characters long
-
   const handleSubmit = async(e: React.FormEvent) => {
-    if (inputs.title === "") return;
     e.preventDefault();
+    if (inputs.title === "") return;
+    setIsLoading(true);
     const token = localStorage.getItem("token");
     const response = await fetch("http://localhost:3000/posts", {
       method: "POST",
@@ -39,24 +39,25 @@ const Create = () => {
       body: JSON.stringify({...inputs})
     });
     const data = await response.json();
-    console.log(data);
+    // should probably make util functions for uploading and getting images
     if (data.status !== 200) {
       return;
     }
     const user = JSON.parse(localStorage.getItem("user")!);
-    const { data: mediaFile, error } = await supabase
+    const { error } = await supabase
       .storage
       .from("hooptalk-media")
       .upload(user.id + "/" + data.post.id, inputs.media);
     
-    console.log(mediaFile);
     if (error) console.log(error);
+    setIsLoading(false);
     toast({ title: data.message, className: "bg-slate-950 text-white" });
     navigate("/");
   };
 
   return (
     <div className="row-start-2 row-end-8 grid justify-items-center items-center ">
+      { isLoading && <LoadingSpinnerModal />}
       <form onSubmit={handleSubmit} 
         className="flex flex-col border-solid border-slate-400 border-1 p-4 gap-4 rounded-sm w-1/2 bg-white">
         <input type="text" name="title" placeholder="Title" value={inputs.title} 
