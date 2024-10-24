@@ -3,16 +3,28 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import supabase from "@/utils/client";
+// import { v4 as uuidv4 } from "uuid";
 
 const Create = () => {
-  const [inputs, setInputs] = useState({ title: "", content: ""});
+  const [inputs, setInputs] = useState({ title: "", content: "", media: ""});
   const navigate = useNavigate();
   const { toast } = useToast();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> ) => {
     const { name, value } = e.target;
     setInputs({...inputs, [name]: value});
+    if (e.target instanceof HTMLInputElement && e.target.files) {
+      const file = e.target.files[0];
+      if (file) {
+        setInputs({...inputs, [name]: file});
+      }
+    }
   };
+
+  // might have to add my jwt scret into supabase 
+  // and might have to change to something longer because it needs to be 32 characters long
 
   const handleSubmit = async(e: React.FormEvent) => {
     if (inputs.title === "") return;
@@ -27,9 +39,18 @@ const Create = () => {
       body: JSON.stringify({...inputs})
     });
     const data = await response.json();
+    console.log(data);
     if (data.status !== 200) {
       return;
     }
+    const user = JSON.parse(localStorage.getItem("user")!);
+    const { data: mediaFile, error } = await supabase
+      .storage
+      .from("hooptalk-media")
+      .upload(user.id + "/" + data.post.id, inputs.media);
+    
+    console.log(mediaFile);
+    if (error) console.log(error);
     toast({ title: data.message, className: "bg-slate-950 text-white" });
     navigate("/");
   };
@@ -44,6 +65,7 @@ const Create = () => {
           value={inputs.content} onChange={handleChange} 
           className="border-slate-400 border-solid border-1 px-2 py-1 rounded-sm">
         </textarea>
+        <Input type="file" name="media" id="media" accept="*" onChange={handleChange}/>
         <div className="flex justify-between gap-4">
           <Button type="button" onClick={() => navigate(-1)}
             className="border-slate-400 border-solid border-1 px-2 py-1 

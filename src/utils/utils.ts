@@ -1,4 +1,5 @@
 import { Params } from "react-router-dom";
+import supabase from "@/utils/client";
 
 const detailsLoader = async({ params }: { params: Params<string> }) => {
   try {
@@ -10,9 +11,14 @@ const detailsLoader = async({ params }: { params: Params<string> }) => {
       },
     });
     const data = await response.json();
+    const user = JSON.parse(localStorage.getItem("user")!);
+    const { data: imgUrl } = supabase
+      .storage
+      .from("hooptalk-media")
+      .getPublicUrl(user.id + "/" + data.id);
     // take care of this error handling
     // if (data.status !== 200) console.log("error");
-    return data;
+    return { data, imgUrl };
   } catch(e) {
     console.log(e);
   }

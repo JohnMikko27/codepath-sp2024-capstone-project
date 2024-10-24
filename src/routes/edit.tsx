@@ -49,14 +49,12 @@ export default function Edit() {
           className="border-slate-400 border-solid border-1 px-2 py-1 rounded-sm">
         </textarea>
         <div className="flex justify-between gap-4">
-          <Button type="button" onClick={() => navigate(-1)}
-            className="border-slate-400 border-solid border-1 px-2 py-1 
-              transition-all duration-200 hover:underline rounded-sm flex-1">
-                Cancel
+          <Button type="button" variant="outline" onClick={() => navigate(-1)}
+            className="flex-1">
+            Cancel
           </Button>
           <Button type="submit"
-            className="border-slate-400 border-solid border-1 px-2 py-1 bg-green-700 text-white
-              transition-all duration-200 hover:underline rounded-sm hover:bg-green-600 flex-1">
+            className=" bg-green-600 text-white hover:bg-green-500 flex-1">
               Update
           </Button>
         </div>

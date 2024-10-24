@@ -18,16 +18,15 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-
 export default function Details() {
-  const postData = useLoaderData() as PostType;
+  const { data: postData, imgUrl } = useLoaderData() as { data: PostType, imgUrl: { publicUrl: string } };
   const [comment, setComment] = useState("");
   const [commentsArr, setCommentsArr] = useState([...postData.comments]);
   const navigate = useNavigate();
   const { toast } = useToast();
   const formattedDate = dt.fromISO(postData.createdAt).toLocaleString(dt.DATE_SHORT);
   const currentUser = JSON.parse(localStorage.getItem("user")!);
-  
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setComment(e.target.value);
@@ -111,6 +110,9 @@ export default function Details() {
         </div>
         <div className="text-2xl font-semibold">{postData.title}</div>
         <div className="text-xl">{postData.content}</div>
+        <img src={imgUrl.publicUrl} alt="Picture uploaded by author of post" 
+          className="w-20"
+        />
         <div className="flex items-center justify-end gap-4">
           <div className={"flex justify-center items-center gap-1 "}>
             <ThumbsUp className="hover:cursor-pointer" 
