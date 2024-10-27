@@ -164,7 +164,7 @@ export default function Details() {
         </form>
       </div>
       <div className="grid gap-2 ">
-        {commentsArr.map((comment, i) => {
+        {Array.isArray(commentsArr) && commentsArr.map((comment, i) => {
           return (
             <Comment key={i} comment={comment} />
           );
