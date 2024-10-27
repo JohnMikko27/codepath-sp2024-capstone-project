@@ -13,7 +13,7 @@ export default function Edit() {
   const navigate = useNavigate();
   const { isLoading, setIsLoading } = useContext(LoadingContext);
   const { toast } = useToast();
-  const env = process.env.NODE_ENV === "production" 
+  const env = import.meta.env.PROD 
     ? "https://hooptalk-api-production.up.railway.app" 
     : "http://localhost:3000";
 

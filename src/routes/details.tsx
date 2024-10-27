@@ -26,7 +26,7 @@ export default function Details() {
   const { toast } = useToast();
   const formattedDate = dt.fromISO(postData.createdAt).toLocaleString(dt.DATE_SHORT);
   const currentUser = JSON.parse(localStorage.getItem("user")!);
-  const env = process.env.NODE_ENV === "production" 
+  const env = import.meta.env.PROD 
     ? "https://hooptalk-api-production.up.railway.app" 
     : "http://localhost:3000";
 

@@ -14,7 +14,7 @@ const Create = () => {
   const { isLoading, setIsLoading } = useContext(LoadingContext);
   const navigate = useNavigate();
   const { toast } = useToast();
-  const env = process.env.NODE_ENV === "production" 
+  const env = import.meta.env.PROD 
     ? "https://hooptalk-api-production.up.railway.app" 
     : "http://localhost:3000";
 

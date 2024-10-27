@@ -6,7 +6,7 @@ import { DateTime as dt } from "ts-luxon";
 export default function Comment({ comment } : { comment: CommentType }) {
   const [author, setAuthor] = useState() as any;
   const formattedDate = dt.fromISO(comment.createdAt).toLocaleString(dt.DATE_SHORT);
-  const env = process.env.NODE_ENV === "production" 
+  const env = import.meta.env.PROD 
     ? "https://hooptalk-api-production.up.railway.app" 
     : "http://localhost:3000";
   

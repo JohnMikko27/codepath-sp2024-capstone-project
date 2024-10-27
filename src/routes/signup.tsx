@@ -8,7 +8,7 @@ export default function Signup() {
   const navigate = useNavigate();
   const [inputs, setInputs] = useState({username: "", password: "", confirmPassword: ""});
   const { toast } = useToast();
-  const env = process.env.NODE_ENV === "production" 
+  const env = import.meta.env.PROD 
     ? "https://hooptalk-api-production.up.railway.app" 
     : "http://localhost:3000";
 

@@ -2,7 +2,7 @@ import { Params } from "react-router-dom";
 import supabase from "./client";
 
 const detailsLoader = async({ params }: { params: Params<string> }) => {
-  const env = process.env.NODE_ENV === "production" 
+  const env = import.meta.env.PROD 
     ? "https://hooptalk-api-production.up.railway.app" 
     : "http://localhost:3000";
 

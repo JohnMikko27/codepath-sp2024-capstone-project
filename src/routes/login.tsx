@@ -10,7 +10,7 @@ export default function Login() {
   const [isError, setIsError] = useState(false);
   const { setIsSignedIn } = useContext(UserContext);
   const { toast } = useToast();
-  const env = process.env.NODE_ENV === "production" 
+  const env = import.meta.env.PROD 
     ? "https://hooptalk-api-production.up.railway.app" 
     : "http://localhost:3000";
   console.log(env);
