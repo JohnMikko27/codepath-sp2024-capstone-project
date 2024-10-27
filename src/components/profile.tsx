@@ -28,10 +28,10 @@ export default function Profile() {
   return (
     <div className=" relative">
       <CircleUserRound className="hover:cursor-pointer" onClick={handleClick}/>
-      <div className={`flex flex-col bg-white text-black absolute 
+      <div className={`flex flex-col absolute 
         w-24 justify-center right-0 top-8 ${visible ? "flex" : "hidden"}`}
       >
-        <Button className="border-bottom border-1">Profile</Button>
+        {/* <Button className="border-bottom border-1">Profile</Button> */}
         <Button onClick={handleSignout}>Sign out</Button>
       </div>
     </div>

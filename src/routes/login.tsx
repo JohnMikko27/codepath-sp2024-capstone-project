@@ -10,6 +10,10 @@ export default function Login() {
   const [isError, setIsError] = useState(false);
   const { setIsSignedIn } = useContext(UserContext);
   const { toast } = useToast();
+  const env = process.env.NODE_ENV === "production" 
+    ? "https://hooptalk-api-production.up.railway.app" 
+    : "http://localhost:3000";
+  console.log(env);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputs({...inputs, [e.target.name]: e.target.value});
@@ -21,7 +25,7 @@ export default function Login() {
   const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:3000/login", {
+      const response = await fetch(env + "/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

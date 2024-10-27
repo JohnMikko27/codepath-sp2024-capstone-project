@@ -26,6 +26,10 @@ export default function Details() {
   const { toast } = useToast();
   const formattedDate = dt.fromISO(postData.createdAt).toLocaleString(dt.DATE_SHORT);
   const currentUser = JSON.parse(localStorage.getItem("user")!);
+  const env = process.env.NODE_ENV === "production" 
+    ? "https://hooptalk-api-production.up.railway.app" 
+    : "http://localhost:3000";
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setComment(e.target.value);
@@ -36,7 +40,7 @@ export default function Details() {
 
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch(`http://localhost:3000/posts/${postData.id}/comments`, {
+      const response = await fetch(env + `/posts/${postData.id}/comments`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -60,7 +64,7 @@ export default function Details() {
   const handleDelete = async() => {
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch(`http://localhost:3000/posts/${postData.id}`, {
+      const response = await fetch(env + `/posts/${postData.id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -81,7 +85,7 @@ export default function Details() {
   const handleUpvote = async() => {
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch(`http://localhost:3000/posts/${postData.id}/like`, {
+      const response = await fetch(env + `/posts/${postData.id}/like`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -109,7 +113,9 @@ export default function Details() {
         <div className="text-2xl font-semibold">{postData.title}</div>
         <div className="text-xl">{postData.content}</div>
         { 
-          postData.imgUrl && <img src={postData.imgUrl} alt="Picture uploaded by author of post" 
+        // sometimes it doesn't render the image, what should i do in this case?
+
+          postData.imgUrl && <img src={postData.imgUrl} alt={`Image uploaded by ${postData.author.username}`} 
             className="w-32"
           /> 
         }

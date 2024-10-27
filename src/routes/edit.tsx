@@ -1,14 +1,21 @@
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate, } from "react-router-dom";
 import { PostType } from "@/utils/types";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
+import LoadingSpinnerModal from "@/components/ui/loadingSpinnerModal";
+import { LoadingContext } from "@/App";
+
 
 export default function Edit() {
   const postData = useLoaderData() as PostType;
   const [inputs, setInputs] = useState({ title: postData.title, content: postData.content });
   const navigate = useNavigate();
+  const { isLoading, setIsLoading } = useContext(LoadingContext);
   const { toast } = useToast();
+  const env = process.env.NODE_ENV === "production" 
+    ? "https://hooptalk-api-production.up.railway.app" 
+    : "http://localhost:3000";
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -17,9 +24,10 @@ export default function Edit() {
 
   const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:3000/posts/${postData.id}`, {
+      const response = await fetch(env + `/posts/${postData.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -29,6 +37,7 @@ export default function Edit() {
       });
       const data = await response.json();
       if (data.status !== 200) return;
+      setIsLoading(false);
       toast({ title: data.message, className: "bg-slate-950 text-white" });
       navigate(`/details/${postData.id}`);
     } catch(e) {
@@ -38,6 +47,7 @@ export default function Edit() {
 
   return (
     <div className="flex justify-center">
+      { isLoading && <LoadingSpinnerModal /> }
       <form onSubmit={handleSubmit}
         className="flex flex-col border-solid border-slate-400 border-1 p-4 gap-4
           rounded-sm w-1/2 bg-white"

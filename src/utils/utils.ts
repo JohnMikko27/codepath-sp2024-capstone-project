@@ -2,9 +2,13 @@ import { Params } from "react-router-dom";
 import supabase from "./client";
 
 const detailsLoader = async({ params }: { params: Params<string> }) => {
+  const env = process.env.NODE_ENV === "production" 
+    ? "https://hooptalk-api-production.up.railway.app" 
+    : "http://localhost:3000";
+
   try {
     const token = localStorage.getItem("token");
-    const response = await fetch(`http://localhost:3000/posts/${params.postId}`, {
+    const response = await fetch(env + `/posts/${params.postId}`, {
       headers: {
         "Content-Type": "application/json",
         "Authorization" : `${token}`,

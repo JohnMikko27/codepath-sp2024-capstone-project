@@ -14,6 +14,9 @@ const Create = () => {
   const { isLoading, setIsLoading } = useContext(LoadingContext);
   const navigate = useNavigate();
   const { toast } = useToast();
+  const env = process.env.NODE_ENV === "production" 
+    ? "https://hooptalk-api-production.up.railway.app" 
+    : "http://localhost:3000";
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> ) => {
     const { name, value } = e.target;
@@ -33,7 +36,7 @@ const Create = () => {
     const token = localStorage.getItem("token");
     const imageId = v4uuid();
     const user = JSON.parse(localStorage.getItem("user")!);
-    const response = await fetch("http://localhost:3000/posts", {
+    const response = await fetch(env + "/posts", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

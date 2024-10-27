@@ -6,12 +6,15 @@ import { DateTime as dt } from "ts-luxon";
 export default function Comment({ comment } : { comment: CommentType }) {
   const [author, setAuthor] = useState() as any;
   const formattedDate = dt.fromISO(comment.createdAt).toLocaleString(dt.DATE_SHORT);
+  const env = process.env.NODE_ENV === "production" 
+    ? "https://hooptalk-api-production.up.railway.app" 
+    : "http://localhost:3000";
   
   useEffect(() => {
     let first = true;
     const fetchAuthor = async() => {
       const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:3000/users/${comment.authorId}`, {
+      const response = await fetch(env + `/users/${comment.authorId}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
