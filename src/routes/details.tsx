@@ -29,6 +29,10 @@ export default function Details() {
   const env = import.meta.env.PROD 
     ? "https://hooptalk-api-production.up.railway.app" 
     : "http://localhost:3000";
+  
+  console.log("Details Environment:", import.meta.env.MODE);
+  console.log("Details Is Production:", import.meta.env.PROD);
+  console.log("details API URL:", env);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();

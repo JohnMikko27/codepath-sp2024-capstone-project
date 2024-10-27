@@ -5,6 +5,9 @@ const detailsLoader = async({ params }: { params: Params<string> }) => {
   const env = import.meta.env.PROD 
     ? "https://hooptalk-api-production.up.railway.app" 
     : "http://localhost:3000";
+  console.log("utils Environment:", import.meta.env.MODE);
+  console.log(" utils Is Production:", import.meta.env.PROD);
+  console.log("utils API URL:", env);
 
   try {
     const token = localStorage.getItem("token");

@@ -14,6 +14,9 @@ export default function Login() {
     ? "https://hooptalk-api-production.up.railway.app" 
     : "http://localhost:3000";
   console.log(env);
+  console.log("login Environment:", import.meta.env.MODE);
+  console.log("login Is Production:", import.meta.env.PROD);
+  console.log("login API URL:", env);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputs({...inputs, [e.target.name]: e.target.value});

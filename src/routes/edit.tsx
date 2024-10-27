@@ -16,6 +16,9 @@ export default function Edit() {
   const env = import.meta.env.PROD 
     ? "https://hooptalk-api-production.up.railway.app" 
     : "http://localhost:3000";
+  console.log("edit Environment:", import.meta.env.MODE);
+  console.log("edit Is Production:", import.meta.env.PROD);
+  console.log("edit API URL:", env);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;

@@ -10,6 +10,10 @@ export default function Comment({ comment } : { comment: CommentType }) {
     ? "https://hooptalk-api-production.up.railway.app" 
     : "http://localhost:3000";
   
+  console.log("Comment Environment:", import.meta.env.MODE);
+  console.log("Comment Is Production:", import.meta.env.PROD);
+  console.log("Comment API URL:", env);
+  
   useEffect(() => {
     let first = true;
     const fetchAuthor = async() => {
