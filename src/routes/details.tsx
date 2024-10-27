@@ -27,12 +27,8 @@ export default function Details() {
   const formattedDate = dt.fromISO(postData.createdAt).toLocaleString(dt.DATE_SHORT);
   const currentUser = JSON.parse(localStorage.getItem("user")!);
   const env = import.meta.env.PROD 
-    ? "https://hooptalk-api-production.up.railway.app" 
-    : "http://localhost:3000";
-  
-  console.log("Details Environment:", import.meta.env.MODE);
-  console.log("Details Is Production:", import.meta.env.PROD);
-  console.log("details API URL:", env);
+    ? import.meta.env.VITE_APP_PROD_API_URL 
+    : import.meta.env.VITE_APP_DEV_API_URL;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -168,7 +164,7 @@ export default function Details() {
         </form>
       </div>
       <div className="grid gap-2 ">
-        {Array.isArray(commentsArr) && commentsArr.map((comment, i) => {
+        {commentsArr.length > 0 && commentsArr.map((comment, i) => {
           return (
             <Comment key={i} comment={comment} />
           );

@@ -7,13 +7,9 @@ export default function Comment({ comment } : { comment: CommentType }) {
   const [author, setAuthor] = useState() as any;
   const formattedDate = dt.fromISO(comment.createdAt).toLocaleString(dt.DATE_SHORT);
   const env = import.meta.env.PROD 
-    ? "https://hooptalk-api-production.up.railway.app" 
-    : "http://localhost:3000";
-  
-  console.log("Comment Environment:", import.meta.env.MODE);
-  console.log("Comment Is Production:", import.meta.env.PROD);
-  console.log("Comment API URL:", env);
-  
+    ? import.meta.env.VITE_APP_PROD_API_URL 
+    : import.meta.env.VITE_APP_DEV_API_URL;
+
   useEffect(() => {
     let first = true;
     const fetchAuthor = async() => {

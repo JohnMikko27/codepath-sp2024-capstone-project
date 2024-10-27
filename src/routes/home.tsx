@@ -11,6 +11,10 @@ export default function Home() {
   const [filter, setFilter] = useState("latest");
   const [input, setInput] = useState("");
   const { isLoading, setIsLoading } = useContext(LoadingContext);
+
+  const env = import.meta.env.PROD 
+    ? import.meta.env.VITE_APP_PROD_API_URL 
+    : import.meta.env.VITE_APP_DEV_API_URL;
   
   const handleChange = async(e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -21,7 +25,7 @@ export default function Home() {
     setIsLoading(true);
     const fetchPosts = async () => {
       const token = localStorage.getItem("token");
-      let url = "http://localhost:3000/posts";
+      let url = env + "/posts";
       if (input) {
         url += `?search=${input}`;
       } else if (filter) {

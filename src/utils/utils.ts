@@ -3,11 +3,8 @@ import supabase from "./client";
 
 const detailsLoader = async({ params }: { params: Params<string> }) => {
   const env = import.meta.env.PROD 
-    ? "https://hooptalk-api-production.up.railway.app" 
-    : "http://localhost:3000";
-  console.log("utils Environment:", import.meta.env.MODE);
-  console.log(" utils Is Production:", import.meta.env.PROD);
-  console.log("utils API URL:", env);
+    ? import.meta.env.VITE_APP_PROD_API_URL 
+    : import.meta.env.VITE_APP_DEV_API_URL;
 
   try {
     const token = localStorage.getItem("token");

@@ -11,12 +11,8 @@ export default function Login() {
   const { setIsSignedIn } = useContext(UserContext);
   const { toast } = useToast();
   const env = import.meta.env.PROD 
-    ? "https://hooptalk-api-production.up.railway.app" 
-    : "http://localhost:3000";
-  console.log(env);
-  console.log("login Environment:", import.meta.env.MODE);
-  console.log("login Is Production:", import.meta.env.PROD);
-  console.log("login API URL:", env);
+    ? import.meta.env.VITE_APP_PROD_API_URL 
+    : import.meta.env.VITE_APP_DEV_API_URL;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputs({...inputs, [e.target.name]: e.target.value});

@@ -15,11 +15,8 @@ const Create = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const env = import.meta.env.PROD 
-    ? "https://hooptalk-api-production.up.railway.app" 
-    : "http://localhost:3000";
-  console.log("create Environment:", import.meta.env.MODE);
-  console.log("create Is Production:", import.meta.env.PROD);
-  console.log("create API URL:", env);
+    ? import.meta.env.VITE_APP_PROD_API_URL 
+    : import.meta.env.VITE_APP_DEV_API_URL;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> ) => {
     const { name, value } = e.target;

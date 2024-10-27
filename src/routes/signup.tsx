@@ -9,11 +9,8 @@ export default function Signup() {
   const [inputs, setInputs] = useState({username: "", password: "", confirmPassword: ""});
   const { toast } = useToast();
   const env = import.meta.env.PROD 
-    ? "https://hooptalk-api-production.up.railway.app" 
-    : "http://localhost:3000";
-  console.log("signup Environment:", import.meta.env.MODE);
-  console.log("signup Is Production:", import.meta.env.PROD);
-  console.log("signup API URL:", env);
+    ? import.meta.env.VITE_APP_PROD_API_URL 
+    : import.meta.env.VITE_APP_DEV_API_URL;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputs({...inputs, [e.target.name]: e.target.value});
