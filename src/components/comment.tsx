@@ -1,10 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { CommentType } from "@/utils/types";
 import { useState, useEffect } from "react";
 import { DateTime as dt } from "ts-luxon";
+import { UserType } from "@/utils/types";
 
 export default function Comment({ comment } : { comment: CommentType }) {
-  const [author, setAuthor] = useState() as any;
+  const [author, setAuthor] = useState<UserType>({id: 0, username: "", password: "", createdAt: "", posts: [], comments: []});
   const formattedDate = dt.fromISO(comment.createdAt).toLocaleString(dt.DATE_SHORT);
   const env = import.meta.env.PROD 
     ? import.meta.env.VITE_APP_PROD_API_URL 
