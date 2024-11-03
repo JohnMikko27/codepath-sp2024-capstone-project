@@ -13,7 +13,10 @@ const Nav = () => {
   return (
     <div className="flex gap-8 row-start-1 row-end-2 border-b-1 border-slate-500 border-solid
     justify-between items-center px-8 h-3/4 bg-slate-950 text-blue-300 shadow-sm shadow-slate-600">
+      {/* <div className="flex gap-20"> */}
       <Link to="/" className="text-2xl hover:underline">HoopTalk</Link>
+      <Link to="/stats" className="text-2xl hover:underline">Stats</Link>
+      {/* </div> */}
       <div className="flex gap-12">
         {isSignedIn && <Link to="/create" className="text-lg hover:underline ">Create</Link>}
         {/* <div>

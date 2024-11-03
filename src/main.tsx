@@ -6,13 +6,14 @@ import {
 } from "react-router-dom";
 import App from "./App.tsx";
 import "./index.css";
+import Stats from "./routes/stats.tsx";
 import Login from "./routes/login.tsx";
 import Signup from "./routes/signup.tsx";
 import Create from "./components/create.tsx";
 import Home from "./routes/home.tsx";
 import Details from "./routes/details.tsx";
 import Edit from "./routes/edit.tsx";
-import { detailsLoader } from "./utils/utils.ts";
+import { detailsLoader, statsLoader } from "./utils/utils.ts";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,11 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />
+      },
+      {
+        path: "/stats",
+        element: <Stats />,
+        loader: statsLoader
       },
       {
         path: "/login",
