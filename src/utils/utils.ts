@@ -1,6 +1,12 @@
 import { Params } from "react-router-dom";
 import supabase from "./client";
 
+const playerLoader = async({ params }: { params: Params<string> }) => {
+  const response = await fetch(`http://localhost:8000/players/${params.playerName}`);
+  const data = await response.json();
+  return data;
+};
+
 const statsLoader = async() => {
   const response = await fetch("http://localhost:8000/stats/stephen curry");
   const data = await response.json();
@@ -8,6 +14,7 @@ const statsLoader = async() => {
 };
 
 const detailsLoader = async({ params }: { params: Params<string> }) => {
+  console.log(params);
   const env = import.meta.env.PROD 
     ? import.meta.env.VITE_APP_PROD_API_URL 
     : import.meta.env.VITE_APP_DEV_API_URL;
@@ -41,4 +48,4 @@ const uploadImage = async(userId: string, imageId: string, media: string) => {
   }
 };
 
-export { detailsLoader, uploadImage, statsLoader };
+export { detailsLoader, uploadImage, statsLoader, playerLoader };

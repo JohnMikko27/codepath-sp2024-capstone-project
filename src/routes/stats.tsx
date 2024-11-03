@@ -1,13 +1,13 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { YearlyStats } from "@/utils/types";
-import { useLoaderData } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { DataTable } from "@/components/ui/datatable";
-// import { ArrowUpDown } from "lucide-react";
-// import { ColumnDef } from "@tanstack/react-table"
-// import { Button } from "@/components/ui/button";
 
+// for my api i need to check the names that are similar because right now its just an exact check
+// eg i should be able to get curry after searching up "stephen c"
 
 const columns = [
   {
@@ -272,38 +272,32 @@ const columns = [
 ];
 
 export default function Stats() {
-  const { stats: playerStats } = useLoaderData() as { stats: YearlyStats[] };
+//   const { stats: playerStats } = useLoaderData() as { stats: YearlyStats[] };
   const [input, setInput] = useState("");
    
-  const [data, setData] = useState<any[]>([...playerStats]);
-  console.log("data");
-  console.log(playerStats);
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput(e.target.value);
-    console.log(input);
-  };
-
-  const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log(`submitted: ${input}`);
-
-    const response = await fetch(`http://localhost:8000/stats/${input}`);
-    const data = await response.json();
-    console.log(data);
-    setData([...data.stats]);
-  };
+  //   const [data, setData] = useState<any[]>([...playerStats]);
+  //   console.log("data");
+  //   console.log(playerStats);
+  
   
   return (
     <div className="px-10">
       <div className="">
-        <form onSubmit={handleSubmit} className="flex justify-self-center w-1/3">
+        {/* <form onSubmit={handleSubmit} className="flex justify-self-center w-1/3">
           <Input value={input} onChange={handleChange}
             placeholder="Search for a player's stats..."/>
-        </form>
+        </form> */}
       </div>
       <div>
-        <DataTable columns={columns} data={data}/>
+        <Link to="/stats/:playerName/">Bio</Link>
+        <Link to="/stats/:playerName/careerStats">stats</Link>
       </div>
+      <div>
+        <Outlet />
+      </div>
+      {/* <div>
+        <DataTable columns={columns} data={data}/>
+      </div> */}
     </div>
   );
 }

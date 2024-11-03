@@ -270,7 +270,7 @@ const columns = [
   }
 ];
 
-export default function Stats() {
+export default function StatsDashboard() {
   const { stats: playerStats } = useLoaderData() as { stats: YearlyStats[] };
    
   const [data, setData] = useState<any[]>([...playerStats]);

@@ -13,7 +13,9 @@ import Create from "./components/create.tsx";
 import Home from "./routes/home.tsx";
 import Details from "./routes/details.tsx";
 import Edit from "./routes/edit.tsx";
-import { detailsLoader, statsLoader } from "./utils/utils.ts";
+import StatsDashboard from "./routes/statsdashboard.tsx";
+import PlayerBio from "./routes/playerBio.tsx";
+import { detailsLoader, statsLoader, playerLoader } from "./utils/utils.ts";
 
 const router = createBrowserRouter([
   {
@@ -24,10 +26,23 @@ const router = createBrowserRouter([
         path: "/",
         element: <Home />
       },
+      // change the url for these, prob just do /player/:playerName/stats (for the stats page)
       {
         path: "/stats",
         element: <Stats />,
-        loader: statsLoader
+        // loader: statsLoader
+        children: [
+          {
+            path: "/stats/:playerName/",
+            element: <PlayerBio />,
+            loader: playerLoader
+          },
+          { 
+            path: "/stats/:playerName/careerStats", 
+            element: <StatsDashboard />,
+            loader: statsLoader
+          },
+        ]
       },
       {
         path: "/login",

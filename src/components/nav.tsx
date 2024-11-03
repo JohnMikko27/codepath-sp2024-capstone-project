@@ -4,19 +4,46 @@ import Profile from "./profile";
 import { UserContext } from "../App";
 // import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger,  } from "./ui/sheet";
 // import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-// import { Input } from "./ui/input";
+import { Input } from "./ui/input";
 // import { Button } from "./ui/button";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Nav = () => {
   const { isSignedIn } = useContext(UserContext);
+  const [input, setInput] = useState("");
+  const navigate = useNavigate();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput(e.target.value);
+    console.log(input);
+  };
+
+  const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(`submitted: ${input}`);
+
+    const response = await fetch(`http://localhost:8000/stats/${input}`);
+    const data = await response.json();
+    console.log(data);
+    // navigate
+    // setData([...data.stats]);
+    navigate(`/stats/${input}`);
+  };
   
   return (
     <div className="flex gap-8 row-start-1 row-end-2 border-b-1 border-slate-500 border-solid
     justify-between items-center px-8 h-3/4 bg-slate-950 text-blue-300 shadow-sm shadow-slate-600">
       {/* <div className="flex gap-20"> */}
       <Link to="/" className="text-2xl hover:underline">HoopTalk</Link>
-      <Link to="/stats" className="text-2xl hover:underline">Stats</Link>
+      {/* <Link to="/stats" className="text-2xl hover:underline">Stats</Link> */}
       {/* </div> */}
+      <div>
+        <form onSubmit={handleSubmit} className="flex justify-self-center w-1/3">
+          <Input value={input} onChange={handleChange}
+            placeholder="Search for a player's stats..."/>
+        </form>
+      </div>
       <div className="flex gap-12">
         {isSignedIn && <Link to="/create" className="text-lg hover:underline ">Create</Link>}
         {/* <div>
