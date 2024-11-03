@@ -1,6 +1,12 @@
 import { Params } from "react-router-dom";
 import supabase from "./client";
 
+const statsLoader = async() => {
+  const response = await fetch("http://localhost:8000/stats/stephen curry");
+  const data = await response.json();
+  return data;
+};
+
 const detailsLoader = async({ params }: { params: Params<string> }) => {
   const env = import.meta.env.PROD 
     ? import.meta.env.VITE_APP_PROD_API_URL 
@@ -35,4 +41,4 @@ const uploadImage = async(userId: string, imageId: string, media: string) => {
   }
 };
 
-export { detailsLoader, uploadImage };
+export { detailsLoader, uploadImage, statsLoader };

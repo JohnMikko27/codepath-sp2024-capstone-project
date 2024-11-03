@@ -29,3 +29,31 @@ export interface CommentType {
     post: PostType,
     postId: number
 }
+
+export interface YearlyStats {
+    AST: number,
+    BLK: number,
+    DREB: number,
+    FG3A: number,
+    FG3M: number,
+    FG3_PCT: number,
+    FGA: number,
+    FGM: number,
+    FG_PCT: number,
+    FTA: number,
+    FTM: number,
+    FT_PCT: number,
+    GP: number,
+    MIN: number,
+    OREB: number,
+    PF: number,
+    PTS: number,
+    REB: number,
+    STL: number,
+    TOV: number,
+    TS_PCT: number,
+    player_id: string,
+    season_id: string,
+    year: string
+
+}
