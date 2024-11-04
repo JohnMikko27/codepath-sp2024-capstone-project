@@ -1,14 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
-import { YearlyStats } from "@/utils/types";
-import { useLoaderData } from "react-router-dom";
+
+import { YearlyStats, } from "@/utils/types";
 import { DataTable } from "@/components/ui/datatable";
+import { ColumnDef } from "@tanstack/react-table";
 
-// for my api i need to check the names that are similar because right now its just an exact check
-// eg i should be able to get curry after searching up "stephen c"
 
-const columns = [
+const columns: ColumnDef<YearlyStats>[] = [
   {
     accessorKey: "year",
     header: ({ column }: {column: any}) => {
@@ -270,21 +267,15 @@ const columns = [
   }
 ];
 
-export default function StatsDashboard() {
-  const { stats: playerStats } = useLoaderData() as { stats: YearlyStats[] };
-   
-  const [data, setData] = useState<any[]>([...playerStats]);
-  console.log("data");
+export default function StatsDashboard({ playerStats }: { playerStats: YearlyStats[] }) {
+  console.log("playerStats");
   console.log(playerStats);
- 
-  
   return (
     <div className="px-10">
       <div className="">
-       
       </div>
       <div>
-        <DataTable columns={columns} data={data}/>
+        <DataTable columns={columns} data={playerStats}/>
       </div>
     </div>
   );

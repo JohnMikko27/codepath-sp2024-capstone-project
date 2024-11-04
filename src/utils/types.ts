@@ -57,3 +57,14 @@ export interface YearlyStats {
     year: string
 
 }
+
+export interface PlayerType {
+    player_id: number,
+    first_name: string,
+    last_name: string,
+    full_name: string,
+    birthdate: Date,
+    height: string,
+    weight: number,
+    years_in_league: number,
+}

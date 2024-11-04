@@ -1,10 +1,25 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { useLoaderData } from "react-router-dom";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { PlayerType } from "@/utils/types";
+import { 
+  Card, 
+  CardHeader, 
+  CardFooter, 
+  CardTitle, 
+  CardDescription, 
+  CardContent 
+} from "@/components/ui/card";
 
-export default function PlayerBio() {
-  const data = useLoaderData() as any;
-  console.log(data);
+export default function PlayerBio({ playerInfo }: { playerInfo: PlayerType}) {
+  console.log("playerInfo");
+  console.log(playerInfo);
   return (
-    <div>playerbio</div>
+    <div>
+        hi playbio
+      <Card>
+        <CardHeader>
+          {/* <CardTitle>{playerInfo.full_name}</CardTitle> */}
+        </CardHeader>
+      </Card>
+    </div>
   );
 }

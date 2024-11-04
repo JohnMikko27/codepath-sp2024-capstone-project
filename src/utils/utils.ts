@@ -2,19 +2,20 @@ import { Params } from "react-router-dom";
 import supabase from "./client";
 
 const playerLoader = async({ params }: { params: Params<string> }) => {
-  const response = await fetch(`http://localhost:8000/players/${params.playerName}`);
-  const data = await response.json();
-  return data;
-};
-
-const statsLoader = async() => {
-  const response = await fetch("http://localhost:8000/stats/stephen curry");
-  const data = await response.json();
-  return data;
+  try {
+    const response = await fetch(`http://localhost:8000/players/${params.playerName}`);
+    const data = await response.json();
+  
+    // should check if theres an error and then send that error
+    const response2 = await fetch(`http://localhost:8000/stats/${params.playerName}`);
+    const data2 = await response2.json();
+    return { playerInfo: data, playerStats: data2 };
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 const detailsLoader = async({ params }: { params: Params<string> }) => {
-  console.log(params);
   const env = import.meta.env.PROD 
     ? import.meta.env.VITE_APP_PROD_API_URL 
     : import.meta.env.VITE_APP_DEV_API_URL;
@@ -48,4 +49,4 @@ const uploadImage = async(userId: string, imageId: string, media: string) => {
   }
 };
 
-export { detailsLoader, uploadImage, statsLoader, playerLoader };
+export { detailsLoader, uploadImage, playerLoader };
