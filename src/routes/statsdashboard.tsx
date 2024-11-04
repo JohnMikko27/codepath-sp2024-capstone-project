@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { YearlyStats, } from "@/utils/types";
 import { DataTable } from "@/components/ui/datatable";
 import { ColumnDef } from "@tanstack/react-table";
-
 
 const columns: ColumnDef<YearlyStats>[] = [
   {

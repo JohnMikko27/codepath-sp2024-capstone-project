@@ -67,4 +67,5 @@ export interface PlayerType {
     height: string,
     weight: number,
     years_in_league: number,
+    player_headshot_url: string
 }

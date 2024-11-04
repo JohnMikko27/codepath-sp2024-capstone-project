@@ -22,6 +22,7 @@ const Nav = () => {
   const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // add some logic here to check if player exists
+    // make sure to add loading spinner
     navigate(`/players/${input}`);
   };
   
