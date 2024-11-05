@@ -261,12 +261,13 @@ const columns: ColumnDef<YearlyStats>[] = [
     },
   }
 ];
-
-export default function StatsDashboard({ playerStats }: { playerStats: YearlyStats[] }) {
+// add post season stats in stats api route, then add that here also, then do the filtering
+export default function StatsDashboard({ playerStats, postSeason }: { playerStats: YearlyStats[], postSeason: boolean }) {
   
   return (
     <div className="px-10">
-      <div className="">
+      <div className="font-bold">
+        { postSeason ? "Playoffs": "Regular Season" }
       </div>
       <div>
         <DataTable columns={columns} data={playerStats}/>

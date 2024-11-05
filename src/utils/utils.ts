@@ -3,13 +3,17 @@ import supabase from "./client";
 
 const playerLoader = async({ params }: { params: Params<string> }) => {
   try {
-    const response = await fetch(`http://localhost:8000/players/${params.playerName}`);
-    const data = await response.json();
+    const playerResponse = await fetch(`http://localhost:8000/players/${params.playerName}`);
+    const playerInfo = await playerResponse.json();
   
     // should check if theres an error and then send that error
-    const response2 = await fetch(`http://localhost:8000/stats/${params.playerName}`);
-    const data2 = await response2.json();
-    return { playerInfo: data, playerStats: data2 };
+    const regSeasonResponse = await fetch(`http://localhost:8000/stats/${params.playerName}/regseason`);
+    const regSeasonStats = await regSeasonResponse.json();
+
+    const postSeasonResponse = await fetch(`http://localhost:8000/stats/${params.playerName}/postseason`);
+    const postSeasonStats = await postSeasonResponse.json();
+
+    return { playerInfo, regSeasonStats, postSeasonStats };
   } catch (e) {
     console.log(e);
   }
