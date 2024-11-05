@@ -1,24 +1,22 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { YearlyStats, } from "@/utils/types";
 import { DataTable } from "@/components/ui/datatable";
-import { ColumnDef } from "@tanstack/react-table";
+import { ColumnDef, Column, Row } from "@tanstack/react-table";
 
 const columns: ColumnDef<YearlyStats>[] = [
   {
     accessorKey: "year",
-    header: ({ column }: {column: any}) => {
+    header: ({ column }: { column: Column<YearlyStats> }) => {
       return (
         <div className="cursor-pointer"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
             Season
-          {/* <ArrowUpDown className=" m-0 h-4 w-4"/> */}
         </div>
       );
     },
   },
   {
     accessorKey: "GP",
-    header: ({ column }: {column: any}) => {
+    header: ({ column }: { column: Column<YearlyStats> }) => {
       return (
         <div className="cursor-pointer"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
@@ -26,14 +24,13 @@ const columns: ColumnDef<YearlyStats>[] = [
         </div>
       );
     },
-    cell: ({ row }: { row: any}) => {
-      // console.log(row.getValue)
+    cell: ({ row }: { row: Row<YearlyStats>}) => {
       return <div>{row.getValue("GP")}</div>;
     }
   },
   {
     accessorKey: "MIN",
-    header: ({ column }: {column: any}) => {
+    header: ({ column }: { column: Column<YearlyStats> }) => {
       return (
         <div className="cursor-pointer"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
@@ -44,7 +41,7 @@ const columns: ColumnDef<YearlyStats>[] = [
   },
   {
     accessorKey: "PTS",
-    header: ({ column }: {column: any}) => {
+    header: ({ column }: { column: Column<YearlyStats> }) => {
       return (
         <div className="cursor-pointer"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
@@ -55,7 +52,7 @@ const columns: ColumnDef<YearlyStats>[] = [
   }, 
   {
     accessorKey: "REB",
-    header: ({ column }: {column: any}) => {
+    header: ({ column }: { column: Column<YearlyStats> }) => {
       return (
         <div className="cursor-pointer"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
@@ -66,7 +63,7 @@ const columns: ColumnDef<YearlyStats>[] = [
   },
   {
     accessorKey: "AST",
-    header: ({ column }: {column: any}) => {
+    header: ({ column }: { column: Column<YearlyStats> }) => {
       return (
         <div className="cursor-pointer"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
@@ -77,7 +74,7 @@ const columns: ColumnDef<YearlyStats>[] = [
   },
   {
     accessorKey: "STL",
-    header: ({ column }: {column: any}) => {
+    header: ({ column }: { column: Column<YearlyStats> }) => {
       return (
         <div className="cursor-pointer"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
@@ -88,7 +85,7 @@ const columns: ColumnDef<YearlyStats>[] = [
   },
   {
     accessorKey: "BLK",
-    header: ({ column }: {column: any}) => {
+    header: ({ column }: { column: Column<YearlyStats> }) => {
       return (
         <div className="cursor-pointer"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
@@ -99,7 +96,7 @@ const columns: ColumnDef<YearlyStats>[] = [
   },
   {
     accessorKey: "FGM",
-    header: ({ column }: {column: any}) => {
+    header: ({ column }: { column: Column<YearlyStats> }) => {
       return (
         <div className="cursor-pointer"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
@@ -110,7 +107,7 @@ const columns: ColumnDef<YearlyStats>[] = [
   },
   {
     accessorKey: "FGA",
-    header: ({ column }: {column: any}) => {
+    header: ({ column }: { column: Column<YearlyStats> }) => {
       return (
         <div className="cursor-pointer"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
@@ -121,7 +118,7 @@ const columns: ColumnDef<YearlyStats>[] = [
   },
   {
     accessorKey: "FG_PCT",
-    header: ({ column }: {column: any}) => {
+    header: ({ column }: { column: Column<YearlyStats> }) => {
       return (
         <div className="cursor-pointer"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
@@ -129,13 +126,13 @@ const columns: ColumnDef<YearlyStats>[] = [
         </div>
       );
     },
-    cell: ({ row }: {row: any}) => {
+    cell: ({ row }: {row: Row<YearlyStats>}) => {
       return <div>{row.getValue("FG_PCT")}%</div>;
     }
   },
   {
     accessorKey: "FG3M",
-    header: ({ column }: {column: any}) => {
+    header: ({ column }: { column: Column<YearlyStats> }) => {
       return (
         <div className="cursor-pointer"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
@@ -146,7 +143,7 @@ const columns: ColumnDef<YearlyStats>[] = [
   },
   {
     accessorKey: "FG3A",
-    header: ({ column }: {column: any}) => {
+    header: ({ column }: { column: Column<YearlyStats> }) => {
       return (
         <div className="cursor-pointer"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
@@ -157,7 +154,7 @@ const columns: ColumnDef<YearlyStats>[] = [
   },
   {
     accessorKey: "FG3_PCT",
-    header: ({ column }: {column: any}) => {
+    header: ({ column }: { column: Column<YearlyStats> }) => {
       return (
         <div className="cursor-pointer"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
@@ -165,13 +162,13 @@ const columns: ColumnDef<YearlyStats>[] = [
         </div>
       );
     },
-    cell: ({ row }: {row: any}) => {
+    cell: ({ row }: {row: Row<YearlyStats>}) => {
       return <div>{row.getValue("FG3_PCT")}%</div>;
     }
   },
   {
     accessorKey: "FTM",
-    header: ({ column }: {column: any}) => {
+    header: ({ column }: { column: Column<YearlyStats> }) => {
       return (
         <div className="cursor-pointer"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
@@ -182,7 +179,7 @@ const columns: ColumnDef<YearlyStats>[] = [
   },
   {
     accessorKey: "FTA",
-    header: ({ column }: {column: any}) => {
+    header: ({ column }: { column: Column<YearlyStats> }) => {
       return (
         <div className="cursor-pointer"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
@@ -193,7 +190,7 @@ const columns: ColumnDef<YearlyStats>[] = [
   },
   {
     accessorKey: "FT_PCT",
-    header: ({ column }: {column: any}) => {
+    header: ({ column }: { column: Column<YearlyStats> }) => {
       return (
         <div className="cursor-pointer"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
@@ -201,13 +198,13 @@ const columns: ColumnDef<YearlyStats>[] = [
         </div>
       );
     },
-    cell: ({ row }: {row: any}) => {
+    cell: ({ row }: {row: Row<YearlyStats>}) => {
       return <div>{row.getValue("FT_PCT")}%</div>;
     }
   },
   {
     accessorKey: "TS_PCT",
-    header: ({ column }: {column: any}) => {
+    header: ({ column }: { column: Column<YearlyStats> }) => {
       return (
         <div className="cursor-pointer"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
@@ -215,13 +212,13 @@ const columns: ColumnDef<YearlyStats>[] = [
         </div>
       );
     },
-    cell: ({ row }: {row: any}) => {
+    cell: ({ row }: {row: Row<YearlyStats>}) => {
       return <div>{row.getValue("TS_PCT")}%</div>;
     }
   },
   {
     accessorKey: "OREB",
-    header: ({ column }: {column: any}) => {
+    header: ({ column }: { column: Column<YearlyStats> }) => {
       return (
         <div className="cursor-pointer"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
@@ -232,7 +229,7 @@ const columns: ColumnDef<YearlyStats>[] = [
   },
   {
     accessorKey: "DREB",
-    header: ({ column }: {column: any}) => {
+    header: ({ column }: { column: Column<YearlyStats> }) => {
       return (
         <div className="cursor-pointer"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
@@ -243,7 +240,7 @@ const columns: ColumnDef<YearlyStats>[] = [
   },
   {
     accessorKey: "TOV",
-    header: ({ column }: {column: any}) => {
+    header: ({ column }: { column: Column<YearlyStats> }) => {
       return (
         <div className="cursor-pointer"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
@@ -254,7 +251,7 @@ const columns: ColumnDef<YearlyStats>[] = [
   },
   {
     accessorKey: "PF",
-    header: ({ column }: {column: any}) => {
+    header: ({ column }: { column: Column<YearlyStats> }) => {
       return (
         <div className="cursor-pointer"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
@@ -266,8 +263,7 @@ const columns: ColumnDef<YearlyStats>[] = [
 ];
 
 export default function StatsDashboard({ playerStats }: { playerStats: YearlyStats[] }) {
-  console.log("playerStats");
-  console.log(playerStats);
+  
   return (
     <div className="px-10">
       <div className="">

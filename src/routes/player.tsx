@@ -1,14 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
 import { YearlyStats, PlayerType } from "@/utils/types";
 import { useLoaderData } from "react-router-dom";
-import PlayerBio from "./playerBio";
+import { DateTime as dt } from "ts-luxon";
 import StatsDashboard from "./statsdashboard";
 import { 
   Card, 
   CardHeader, 
-  CardFooter, 
   CardTitle, 
   CardDescription, 
   CardContent 
@@ -16,11 +12,13 @@ import {
 
 export default function Player() {
   const data = useLoaderData() as { playerInfo: { player_info: PlayerType }, playerStats: { stats: YearlyStats[] }} ;
-  const [filter, setFilter] = useState("bio");
   const playerInfo = data.playerInfo.player_info;
+  const date = dt.fromISO((playerInfo.birthdate).toLocaleString());
+  const birthdate = `${date.monthLong} ${date.day}, ${date.year}`;
+  
   return (
-    <div className="px-10">
-      <div>
+    <div className="px-10 flex">
+      <div className="">
         <Card>
           <CardHeader className="flex flex-row items-center">
             <img 
@@ -28,22 +26,37 @@ export default function Player() {
               src={playerInfo.player_headshot_url} 
               alt={`${playerInfo}'s headshot`} 
             />
-            <CardTitle>{playerInfo.full_name}</CardTitle>
           </CardHeader>
+          <CardContent>
+            <div className="flex flex-col gap-4">
+              <div>
+                <CardTitle>{playerInfo.full_name}</CardTitle>
+                <CardDescription>Name</CardDescription>
+              </div>
+              
+              <div>
+                <CardTitle>{playerInfo.height}</CardTitle>
+                <CardDescription>Height</CardDescription>
+              </div>
+              <div>
+                <CardTitle>{playerInfo.weight}</CardTitle>
+                <CardDescription>Weight</CardDescription>
+              </div>
+              <div>
+                <CardTitle>{playerInfo.years_in_league}</CardTitle>
+                <CardDescription>Experience</CardDescription>
+              </div>
+              <div>
+                <CardTitle>{birthdate}</CardTitle>
+                <CardDescription>Birthdate</CardDescription>
+              </div>
+            </div>
+          </CardContent>
         </Card>
       </div>
-      <div className="flex gap-8">
-        <Button onClick={() => setFilter("bio")} >Bio</Button>
-        <Button onClick={() => setFilter("stats")} >Stats</Button>
-      </div>
       <div>
-        {
-          filter === "bio"
-            ? <PlayerBio playerInfo={data.playerInfo.player_info}/>
-            : <StatsDashboard playerStats={data.playerStats.stats}/>
-        }
+        <StatsDashboard playerStats={data.playerStats.stats}/>
       </div>
-      
     </div>
   );
 }
