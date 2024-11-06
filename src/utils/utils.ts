@@ -53,4 +53,10 @@ const uploadImage = async(userId: string, imageId: string, media: string) => {
   }
 };
 
-export { detailsLoader, uploadImage, playerLoader };
+const truncate = (num: number, decimalPlaces: number) => {
+  const multiplier = Math.pow(10, decimalPlaces);
+  return ((num * multiplier) / multiplier).toFixed(1);
+};
+
+
+export { detailsLoader, uploadImage, playerLoader, truncate };

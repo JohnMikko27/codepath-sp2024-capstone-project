@@ -55,7 +55,6 @@ export interface YearlyStats {
     player_id: string,
     season_id: string,
     year: string
-
 }
 
 export interface PlayerType {
