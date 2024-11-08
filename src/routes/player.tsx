@@ -25,8 +25,6 @@ export default function Player() {
     playerInfo: { player_info: PlayerType }, 
     regSeasonStats: { reg_season_stats: YearlyStats[] }, 
     postSeasonStats: { post_season_stats: YearlyStats[] } ,
-    status?: boolean,
-    message?: string,
   };
   
   const [statFilter, setStatFilter] = useState("perGame");

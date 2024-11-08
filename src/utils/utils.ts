@@ -13,11 +13,10 @@ const playerLoader = async({ params }: { params: Params<string> }) => {
     const postSeasonResponse = await fetch(`http://localhost:8000/stats/${params.playerName}/postseason`);
     const postSeasonStats = await postSeasonResponse.json();
     if (playerInfo.status === false || regSeasonStats.status === false || postSeasonStats.status === false) {
-      console.log("utils.ts");
       return { status: false, message: "Player not found", playerInfo: {}, regSeasonStats: {}, postSeasonStats: {} };
     }
 
-    return { playerInfo, regSeasonStats, postSeasonStats, message: "Player found", status: true };
+    return { playerInfo, regSeasonStats, postSeasonStats };
   } catch (e) {
     console.log(e);
   }
