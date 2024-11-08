@@ -6,7 +6,6 @@ export default function StatsDashboard(
   { playerStats, postSeason, statFilter }: 
   { playerStats: YearlyStats[], postSeason: boolean, statFilter: string }) {
 
-
   const columns: ColumnDef<YearlyStats>[] = [
     {
       accessorKey: "year",
@@ -167,7 +166,7 @@ export default function StatsDashboard(
           </div>
         );
       },
-      cell: ({ row }: {row: Row<YearlyStats>}) => {
+      cell: ({ row }: { row: Row<YearlyStats> }) => {
         return <div>{row.getValue("FG3_PCT")}%</div>;
       }
     },

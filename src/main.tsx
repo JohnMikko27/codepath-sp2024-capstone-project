@@ -13,6 +13,7 @@ import Create from "./components/create.tsx";
 import Home from "./routes/home.tsx";
 import Details from "./routes/details.tsx";
 import Edit from "./routes/edit.tsx";
+import PlayerError from "./components/playerError.tsx";
 import { detailsLoader, playerLoader } from "./utils/utils.ts";
 
 const router = createBrowserRouter([
@@ -29,6 +30,7 @@ const router = createBrowserRouter([
         path: "/players/:playerName",
         element: <Player />,
         loader: playerLoader,
+        errorElement: <PlayerError />
       },
       {
         path: "/login",

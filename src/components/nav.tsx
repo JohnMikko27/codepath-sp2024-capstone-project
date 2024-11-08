@@ -30,9 +30,9 @@ const Nav = () => {
     <div className="flex gap-8 row-start-1 row-end-2 border-b-1 border-slate-500 border-solid
     justify-between items-center px-8 h-3/4 bg-slate-950 text-blue-300 shadow-sm shadow-slate-600">
       <Link to="/" className="text-2xl hover:underline">HoopTalk</Link>
-      <div>
-        <form onSubmit={handleSubmit} className="flex justify-self-center w-1/3">
-          <Input value={input} onChange={handleChange}
+      <div className="px-30">
+        <form onSubmit={handleSubmit} className="flex justify-self-center w-52">
+          <Input value={input} onChange={handleChange} className="rounded-full"
             placeholder="Search for a player's stats..."/>
         </form>
       </div>

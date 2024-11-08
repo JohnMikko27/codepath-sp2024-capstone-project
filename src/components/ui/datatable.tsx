@@ -51,6 +51,7 @@ export function DataTable<TData, TValue>({
         REB: statFilter === "totals" ? row.REB : statFilter === "per36" ? per36(row.REB) : perGame(row.REB),
         STL: statFilter === "totals" ? row.STL : statFilter === "per36" ? per36(row.STL) : perGame(row.STL),
         TOV: statFilter === "totals" ? row.TOV : statFilter === "per36" ? per36(row.TOV) : perGame(row.TOV),
+        MIN: statFilter === "totals" ? row.MIN : statFilter === "per36" ? per36(row.MIN) : perGame(row.MIN),
         TS_PCT: row.TS_PCT.toFixed(1),
         FT_PCT: row.FT_PCT.toFixed(1),
         FG_PCT: row.FG_PCT.toFixed(1),

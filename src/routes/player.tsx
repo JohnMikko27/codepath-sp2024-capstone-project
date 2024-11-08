@@ -1,4 +1,4 @@
-import { useState } from "react"; 
+import { useState,  } from "react"; 
 import { YearlyStats, PlayerType } from "@/utils/types";
 import { useLoaderData } from "react-router-dom";
 import { DateTime as dt } from "ts-luxon";
@@ -24,10 +24,12 @@ export default function Player() {
   { 
     playerInfo: { player_info: PlayerType }, 
     regSeasonStats: { reg_season_stats: YearlyStats[] }, 
-    postSeasonStats: { post_season_stats: YearlyStats[] }
+    postSeasonStats: { post_season_stats: YearlyStats[] } ,
+    status?: boolean,
+    message?: string,
   };
-  const [statFilter, setStatFilter] = useState("totals");
-
+  
+  const [statFilter, setStatFilter] = useState("perGame");
   const playerInfo = data.playerInfo.player_info;
   const date = dt.fromISO((playerInfo.birthdate).toLocaleString());
   const birthdate = `${date.monthLong} ${date.day}, ${date.year}`;
@@ -79,11 +81,11 @@ export default function Player() {
           <div>
             <Select onValueChange={handleSelectChange}>
               <SelectTrigger>
-                <SelectValue placeholder="Totals"/>
+                <SelectValue placeholder="Per Game"/>
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="totals">Totals</SelectItem>
                 <SelectItem value="perGame">Per Game</SelectItem>
+                <SelectItem value="totals">Totals</SelectItem>
                 <SelectItem value="per36">Per 36 Minutes</SelectItem>
               </SelectContent>
             </Select>

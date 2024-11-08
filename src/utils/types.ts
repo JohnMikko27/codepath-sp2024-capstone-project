@@ -54,7 +54,7 @@ export interface YearlyStats {
     TS_PCT: number,
     player_id: string,
     season_id: string,
-    year: string
+    year: string,
 }
 
 export interface PlayerType {
@@ -66,5 +66,5 @@ export interface PlayerType {
     height: string,
     weight: number,
     years_in_league: number,
-    player_headshot_url: string
+    player_headshot_url: string,
 }
