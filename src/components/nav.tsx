@@ -16,13 +16,10 @@ const Nav = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
-    console.log(input);
   };
 
   const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // add some logic here to check if player exists
-    // make sure to add loading spinner
     navigate(`/players/${input}`);
   };
   
@@ -63,7 +60,7 @@ const Nav = () => {
           </Sheet>
         </div> */}
         { isSignedIn 
-          ? <Profile/>
+          ? <Profile />
           : <Link to="/login" className="text-lg hover:underline ">Login</Link>
         }
       </div>
