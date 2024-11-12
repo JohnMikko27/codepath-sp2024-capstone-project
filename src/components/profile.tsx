@@ -7,21 +7,24 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Input } from "./ui/input";
 import supabase from "@/utils/client";
 import { v4 as v4uuid } from "uuid";
+import { useToast } from "@/hooks/use-toast";
 
 export default function Profile() {
   const navigate = useNavigate();
   const { setIsSignedIn } = useContext(UserContext);
   const user = JSON.parse(localStorage.getItem("user")!);
   const [pfp, setPfp] = useState({ media: "" });
+  const { toast } = useToast();
   const env = import.meta.env.PROD 
     ? import.meta.env.VITE_APP_PROD_API_URL 
     : import.meta.env.VITE_APP_DEV_API_URL;
- 
+  
   const handleSignout = async() => {
     try {
       setIsSignedIn(false);
       localStorage.removeItem("token");
       localStorage.removeItem("user");
+      toast({ title: "Signout successful.", className: "bg-slate-950 text-white" });
       navigate("/login");
     } catch (e) {
       console.log(e);
