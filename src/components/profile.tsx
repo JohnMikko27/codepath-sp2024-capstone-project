@@ -2,12 +2,13 @@ import { useNavigate, } from "react-router-dom";
 import { useState, useContext } from "react";
 import { UserContext } from "../App";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger,  } from "./ui/sheet";
+import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger, } from "./ui/sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Input } from "./ui/input";
 import supabase from "@/utils/client";
 import { v4 as v4uuid } from "uuid";
 import { useToast } from "@/hooks/use-toast";
+import { DateTime as dt } from "ts-luxon";
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -15,6 +16,10 @@ export default function Profile() {
   const user = JSON.parse(localStorage.getItem("user")!);
   const [pfp, setPfp] = useState({ media: "" });
   const { toast } = useToast();
+  // should create a function for this i think
+  const date = dt.fromISO((user.createdAt).toLocaleString());
+  const formattedDate = `${date.monthLong} ${date.day}, ${date.year}`;
+  
   const env = import.meta.env.PROD 
     ? import.meta.env.VITE_APP_PROD_API_URL 
     : import.meta.env.VITE_APP_DEV_API_URL;
@@ -102,7 +107,7 @@ export default function Profile() {
               <img src="src/assets/default-pfp.png" alt="Default profile pic" />
             </AvatarFallback>
           </Avatar>
-          <div >
+          <div className="flex flex-col gap-16">
             <form onSubmit={handleSubmit}
               className="flex flex-col gap-2"
             >
@@ -114,6 +119,24 @@ export default function Profile() {
                   Upload Image
               </Button>
             </form>
+            <div className="flex flex-col gap-8">
+              <div>
+                <div className="text-slate-400 italic text-sm">Username</div>
+                <div>{user.username}</div>
+              </div>
+              <div>
+                <div className="text-slate-400 italic text-sm">Account created at</div> 
+                <div>{formattedDate}</div>
+              </div>
+              <div>
+                <div className="text-slate-400 italic text-sm"># of posts</div>
+                <div>{user._count.posts}</div>
+              </div>
+              <div>
+                <div className="text-slate-400 italic text-sm"># of comments</div>
+                <div>{user._count.comments}</div>
+              </div>
+            </div>
           </div>
           <div className=" flex flex-col justify-end  justify-self-end flex-1">
             <Button onClick={handleSignout}>Sign out</Button>
