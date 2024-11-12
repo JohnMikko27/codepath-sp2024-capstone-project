@@ -33,32 +33,8 @@ const Nav = () => {
             placeholder="Search for a player's stats..."/>
         </form>
       </div>
-      <div className="flex gap-12">
+      <div className="flex gap-12 items-center">
         {isSignedIn && <Link to="/create" className="text-lg hover:underline ">Create</Link>}
-        {/* <div>
-          <Sheet>
-            <SheetTrigger>
-            
-              <Avatar>
-                <AvatarImage src="src/assets/default-pfp.png" alt="User's profile pic"></AvatarImage>
-                <AvatarFallback>
-                  <img src="src/assets/default-pfp.png"/>
-                </AvatarFallback>
-              </Avatar>
-            </SheetTrigger>
-            <SheetContent>
-              <SheetTitle>Profile</SheetTitle>
-              <SheetDescription>View your information and update pfp</SheetDescription>
-              <Avatar>
-                <AvatarImage src="src/assets/default-pfp.png" alt="User's profile pic"></AvatarImage>
-                
-              </Avatar>
-              <div>
-                <Input type="file" id="pfp" name="pfp"/>
-              </div>
-            </SheetContent>
-          </Sheet>
-        </div> */}
         { isSignedIn 
           ? <Profile />
           : <Link to="/login" className="text-lg hover:underline ">Login</Link>

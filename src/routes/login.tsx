@@ -39,7 +39,6 @@ export default function Login() {
         setIsError(true);
         return;
       }
-
       localStorage.setItem("token", `Bearer ${data.token}`);
       localStorage.setItem("user", JSON.stringify(data.user));
       toast({ title: data.message, className: "bg-green-600 text-white" });
