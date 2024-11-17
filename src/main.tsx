@@ -25,7 +25,6 @@ const router = createBrowserRouter([
         path: "/",
         element: <Home />
       },
-      // change the url for these, prob just do /player/:playerName/stats (for the stats page)
       {
         path: "/players/:playerName",
         element: <Player />,
@@ -47,7 +46,7 @@ const router = createBrowserRouter([
       {
         path: "/details/:postId",
         element: <Details />,
-        loader: detailsLoader
+        loader: detailsLoader,
       },
       {
         path: "/edit/:postId",
