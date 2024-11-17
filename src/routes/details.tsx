@@ -34,6 +34,7 @@ export default function Details() {
     e.preventDefault();
     setComment(e.target.value);
   };
+  
   const handleComment = async(e: React.FormEvent) => {
     e.preventDefault();
     if (comment === "") return;

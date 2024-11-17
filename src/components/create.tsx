@@ -74,7 +74,7 @@ const Create = () => {
           value={inputs.content} onChange={handleChange} 
           className="border-slate-400 border-solid border-1 px-2 py-1 rounded-sm">
         </textarea>
-        <Input type="file" name="media" id="media" accept="*" onChange={handleChange}/>
+        <Input type="file" name="media" id="media" accept=".png, .jpg, .jpeg" onChange={handleChange}/>
         <div className="flex justify-between gap-4">
           <Button type="button" onClick={() => navigate(-1)}
             className="border-slate-400 border-solid border-1 px-2 py-1 

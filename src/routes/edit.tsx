@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import LoadingSpinnerModal from "@/components/ui/loadingSpinnerModal";
 import { LoadingContext } from "@/App";
 
-
 export default function Edit() {
   const postData = useLoaderData() as PostType;
   const [inputs, setInputs] = useState({ title: postData.title, content: postData.content });

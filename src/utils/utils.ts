@@ -1,6 +1,27 @@
 import { Params } from "react-router-dom";
 import supabase from "./client";
 
+const playerLoader = async({ params }: { params: Params<string> }) => {
+  try {
+    const playerResponse = await fetch(`http://localhost:8000/players/${params.playerName}`);
+    const playerInfo = await playerResponse.json();
+  
+    // should check if theres an error and then send that error
+    const regSeasonResponse = await fetch(`http://localhost:8000/stats/${params.playerName}/regseason`);
+    const regSeasonStats = await regSeasonResponse.json();
+
+    const postSeasonResponse = await fetch(`http://localhost:8000/stats/${params.playerName}/postseason`);
+    const postSeasonStats = await postSeasonResponse.json();
+    if (playerInfo.status === false || regSeasonStats.status === false || postSeasonStats.status === false) {
+      return { status: false, message: "Player not found", playerInfo: {}, regSeasonStats: {}, postSeasonStats: {} };
+    }
+
+    return { playerInfo, regSeasonStats, postSeasonStats };
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 const detailsLoader = async({ params }: { params: Params<string> }) => {
   const env = import.meta.env.PROD 
     ? import.meta.env.VITE_APP_PROD_API_URL 
@@ -35,4 +56,10 @@ const uploadImage = async(userId: string, imageId: string, media: string) => {
   }
 };
 
-export { detailsLoader, uploadImage };
+const truncate = (num: number, decimalPlaces: number) => {
+  const multiplier = Math.pow(10, decimalPlaces);
+  return ((num * multiplier) / multiplier).toFixed(1);
+};
+
+
+export { detailsLoader, uploadImage, playerLoader, truncate };

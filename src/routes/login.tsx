@@ -39,10 +39,13 @@ export default function Login() {
         setIsError(true);
         return;
       }
-
       localStorage.setItem("token", `Bearer ${data.token}`);
       localStorage.setItem("user", JSON.stringify(data.user));
-      toast({ title: data.message, className: "bg-green-600 text-white" });
+      toast({ 
+        title: data.message, 
+        description: "Please reload if you still see the login button.", 
+        className: "bg-slate-950 text-white" 
+      });
       setIsSignedIn(true);
       navigate("/");
     } catch (e) {

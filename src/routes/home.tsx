@@ -5,12 +5,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import LoadingSpinnerModal  from "@/components/ui/loadingSpinnerModal";
 import { LoadingContext } from "@/App";
+import { useDebounce } from "use-debounce";
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
   const [filter, setFilter] = useState("latest");
   const [input, setInput] = useState("");
   const { isLoading, setIsLoading } = useContext(LoadingContext);
+  const [debouncedInput] = useDebounce(input, 1000);
 
   const env = import.meta.env.PROD 
     ? import.meta.env.VITE_APP_PROD_API_URL 
@@ -26,8 +28,8 @@ export default function Home() {
     const fetchPosts = async () => {
       const token = localStorage.getItem("token");
       let url = env + "/posts";
-      if (input) {
-        url += `?search=${input}`;
+      if (debouncedInput) {
+        url += `?search=${debouncedInput}`;
       } else if (filter) {
         url += `?sort=${filter}`;
       }
@@ -51,7 +53,7 @@ export default function Home() {
       clearTimeout(intervalId);
     });
 
-  }, [input, filter]);
+  }, [debouncedInput, filter]);
 
   return (
     <div className={"px-10 pb-10 grid gap-4"} >
