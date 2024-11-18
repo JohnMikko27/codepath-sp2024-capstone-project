@@ -85,7 +85,7 @@ export default function Profile() {
               className=" object-cover object-center"
             />
             <AvatarFallback>
-              <img src="src/assets/default-pfp.png"/>
+              <img src="https://ekcnbalczcqlpckprbce.supabase.co/storage/v1/object/public/hooptalk-media/default-pfp.png"/>
             </AvatarFallback>
           </Avatar>
         </SheetTrigger>
@@ -99,7 +99,7 @@ export default function Profile() {
               className=" object-cover object-center"
             />
             <AvatarFallback>
-              <img src="src/assets/default-pfp.png" alt="Default profile pic" />
+              <img src="https://ekcnbalczcqlpckprbce.supabase.co/storage/v1/object/public/hooptalk-media/default-pfp.png" alt="Default profile pic" />
             </AvatarFallback>
           </Avatar>
           <div className="flex flex-col gap-16">
