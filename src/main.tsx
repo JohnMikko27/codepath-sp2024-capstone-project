@@ -15,22 +15,13 @@ import Details from "./routes/details.tsx";
 import Edit from "./routes/edit.tsx";
 import PlayerError from "./components/playerError.tsx";
 import { detailsLoader, playerLoader } from "./utils/utils.ts";
+import ProtectedRoute from "./routes/protectedRoute.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
-      {
-        path: "/",
-        element: <Home />
-      },
-      {
-        path: "/players/:playerName",
-        element: <Player />,
-        loader: playerLoader,
-        errorElement: <PlayerError />
-      },
       {
         path: "/login",
         element: <Login />
@@ -40,19 +31,36 @@ const router = createBrowserRouter([
         element: <Signup />
       },
       {
-        path: "/create",
-        element: <Create />
-      },
-      {
-        path: "/details/:postId",
-        element: <Details />,
-        loader: detailsLoader,
-      },
-      {
-        path: "/edit/:postId",
-        element: <Edit />,
-        loader: detailsLoader
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: "/",
+            element: <Home />
+          },
+          {
+            path: "/players/:playerName",
+            element: <Player />,
+            loader: playerLoader,
+            errorElement: <PlayerError />
+          },
+          
+          {
+            path: "/create",
+            element: <Create />
+          },
+          {
+            path: "/details/:postId",
+            element: <Details />,
+            loader: detailsLoader,
+          },
+          {
+            path: "/edit/:postId",
+            element: <Edit />,
+            loader: detailsLoader
+          }
+        ]
       }
+      
     ]
   },
   

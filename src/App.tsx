@@ -2,7 +2,6 @@ import Nav from "./components/nav";
 import { Outlet } from "react-router-dom";
 import React, { createContext, useState } from "react";
 import { Toaster } from "@/components/ui/toaster";
-import Login from "./routes/login";
 
 export const UserContext = createContext<{ 
   isSignedIn: boolean; 
@@ -21,7 +20,7 @@ export const LoadingContext = createContext<{
 export default function App() {
   const [isSignedIn, setIsSignedIn] = useState<boolean>(localStorage.getItem("token") ? true : false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const isLoggedIn = localStorage.getItem("user") !== null;
+  
   return (
     <LoadingContext.Provider value={{ isLoading, setIsLoading }}>
       <UserContext.Provider value={{ isSignedIn, setIsSignedIn }}>
@@ -30,7 +29,7 @@ export default function App() {
             <Nav />
           </div>
           <div className=" row-span-9">
-            { isLoggedIn ? <Outlet /> : <Login />}
+            <Outlet />
           </div>
           <Toaster />
         </div>
