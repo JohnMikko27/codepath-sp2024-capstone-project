@@ -13,7 +13,7 @@ export default function Home() {
   const [input, setInput] = useState("");
   const { isLoading, setIsLoading } = useContext(LoadingContext);
   const [debouncedInput] = useDebounce(input, 1000);
-
+  
   const env = import.meta.env.PROD 
     ? import.meta.env.VITE_APP_PROD_API_URL 
     : import.meta.env.VITE_APP_DEV_API_URL;

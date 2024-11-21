@@ -1,6 +1,6 @@
 import { useLoaderData, Link, useNavigate } from "react-router-dom";
 import { ThumbsUp, Pencil, Trash2 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { PostType } from "@/utils/types";
 import Comment  from "../components/comment";
 import { DateTime as dt } from "ts-luxon";
@@ -17,6 +17,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { socket } from "@/socket";
 
 export default function Details() {
   const postData = useLoaderData() as PostType;
@@ -49,7 +50,7 @@ export default function Details() {
         },
         body: JSON.stringify({ content: comment })
       });
-      
+     
       const data = await response.json();
       if (data.status !== 200) {
         return;
@@ -103,6 +104,21 @@ export default function Details() {
     }
   };
   
+  useEffect(() => {
+    // socket.connect();
+    return (() => {
+      socket.disconnect();
+    });
+  }, []);
+
+  useEffect(() => {
+    socket.emit("newComment", { postId: postData.id });
+    socket.on("updatedComments", () => {
+      console.log("updatedComments bro");
+    });
+      
+  }, [commentsArr]);
+
   return (
     <div className="flex flex-col row-start-2 row-end-8 gap-4 
     px-8 py-4">
