@@ -108,7 +108,6 @@ export default function Details() {
   
   useEffect(() => {
     socket.connect();
-
     return (() => {
       socket.disconnect();
     });
@@ -118,7 +117,6 @@ export default function Details() {
     socket.on("allComments", (data) => {
       setCommentsArr([...data]);
     });
-      
     return (() => {
       socket.off("submitComment");
       socket.off("allComments");
