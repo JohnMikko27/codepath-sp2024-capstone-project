@@ -55,6 +55,8 @@ export default function Details() {
       if (data.status !== 200) {
         return;
       }
+
+      socket.emit("submitComment", { postId: postData.id });
       setCommentsArr([...commentsArr, data.comment]);
       setComment("");
       navigate(`/details/${postData.id}`);
@@ -105,19 +107,23 @@ export default function Details() {
   };
   
   useEffect(() => {
-    // socket.connect();
+    socket.connect();
+
     return (() => {
       socket.disconnect();
     });
   }, []);
 
   useEffect(() => {
-    socket.emit("newComment", { postId: postData.id });
-    socket.on("updatedComments", () => {
-      console.log("updatedComments bro");
+    socket.on("allComments", (data) => {
+      setCommentsArr([...data]);
     });
       
-  }, [commentsArr]);
+    return (() => {
+      socket.off("submitComment");
+      socket.off("allComments");
+    });
+  }, []);
 
   return (
     <div className="flex flex-col row-start-2 row-end-8 gap-4 
