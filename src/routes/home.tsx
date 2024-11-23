@@ -6,14 +6,15 @@ import { Input } from "@/components/ui/input";
 import LoadingSpinnerModal  from "@/components/ui/loadingSpinnerModal";
 import { LoadingContext } from "@/App";
 import { useDebounce } from "use-debounce";
+import { socket } from "@/socket";
 
 export default function Home() {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<PostType[]>([]);
   const [filter, setFilter] = useState("latest");
   const [input, setInput] = useState("");
   const { isLoading, setIsLoading } = useContext(LoadingContext);
   const [debouncedInput] = useDebounce(input, 1000);
-
+  
   const env = import.meta.env.PROD 
     ? import.meta.env.VITE_APP_PROD_API_URL 
     : import.meta.env.VITE_APP_DEV_API_URL;
@@ -54,6 +55,22 @@ export default function Home() {
     });
 
   }, [debouncedInput, filter]);
+
+  useEffect(() => {
+    socket.connect();
+    return (() => {
+      socket.disconnect();
+    });
+  }, []);
+
+  useEffect(() => {
+    socket.on("allPosts", (data: PostType[]) => {
+      setPosts([...data]);
+    });
+    return (() => {
+      socket.off("allPosts");
+    });
+  }, []);
 
   return (
     <div className={"px-10 pb-10 grid gap-4"} >

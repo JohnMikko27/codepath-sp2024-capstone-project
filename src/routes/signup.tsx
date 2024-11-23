@@ -42,7 +42,7 @@ export default function Signup() {
   return (
     <div className="row-start-2 row-end-8 grid justify-items-center items-center">
       <form onSubmit={handleSubmit} className="border-slate-400 border-1 grid gap-4 
-      justify-self-center self-center p-8 w-1/4 rounded-sm">
+      justify-self-center self-center p-8 rounded-sm">
         <div className="grid gap-2">
           <input value={inputs.username} type="text" placeholder="username" name="username" 
             className="px-2 py-1 border-1 border-slate-400 border-solid rounded-sm" onChange={handleChange}/>
@@ -51,7 +51,7 @@ export default function Signup() {
           <input value={inputs.confirmPassword} type="password" placeholder="confirm password" name="confirmPassword" 
             className="px-2 py-1 border-1 border-slate-400 border-solid rounded-sm" onChange={handleChange}/>
         </div>
-        <div className="flex justify-between">
+        <div className="flex justify-between gap-4">
           <p className=" text-xs">Have an account already?</p>
           <Link to="/login" className="text-xs text-blue-500">Login to your account</Link>
         </div>

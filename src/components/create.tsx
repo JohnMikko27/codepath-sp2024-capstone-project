@@ -1,5 +1,5 @@
  
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
@@ -8,6 +8,7 @@ import { LoadingContext } from "@/App";
 import LoadingSpinnerModal from "./ui/loadingSpinnerModal";
 import { v4 as v4uuid } from "uuid";
 import { uploadImage } from "@/utils/utils";
+import { socket } from "@/socket";
 
 const Create = () => {
   const [inputs, setInputs] = useState({ title: "", content: "", media: ""});
@@ -50,18 +51,25 @@ const Create = () => {
       })
     });
     const data = await response.json();
-    // should probably make util functions for uploading and getting images
     if (data.status !== 200) {
       return;
     }
     if (inputs.media !== "") {
       uploadImage(user.id, imageId, inputs.media);
     }
-    
+    socket.emit("newPost");
     setIsLoading(false);
     toast({ title: data.message, className: "bg-slate-950 text-white" });
     navigate("/");
   };
+
+  useEffect(() => {
+    socket.connect();
+    return (() => {
+      socket.off("newPost");
+      socket.disconnect();
+    });
+  }, []);
 
   return (
     <div className="row-start-2 row-end-8 grid justify-items-center items-center ">
