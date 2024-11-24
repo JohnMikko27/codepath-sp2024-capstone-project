@@ -2,10 +2,7 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import Profile from "./profile";
 import { UserContext } from "../App";
-// import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger,  } from "./ui/sheet";
-// import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Input } from "./ui/input";
-// import { Button } from "./ui/button";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -34,7 +31,7 @@ const Nav = () => {
         </form>
       </div>
       <div className="flex gap-12 items-center">
-        {isSignedIn && <Link to="/create" className="text-lg hover:underline ">Create</Link>}
+        { isSignedIn && <Link to="/create" className="text-lg hover:underline ">Create</Link> }
         { isSignedIn 
           ? <Profile />
           : <Link to="/login" className="text-lg hover:underline ">Login</Link>

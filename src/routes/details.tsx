@@ -134,8 +134,6 @@ export default function Details() {
         <div className="text-2xl font-semibold">{postData.title}</div>
         <div className="text-xl">{postData.content}</div>
         { 
-        // sometimes it doesn't render the image, what should i do in this case?
-
           postData.imgUrl && <img src={postData.imgUrl} alt={`Image uploaded by ${postData.author.username}`} 
             className="w-32"
           /> 

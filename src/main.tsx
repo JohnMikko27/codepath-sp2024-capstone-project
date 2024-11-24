@@ -16,6 +16,7 @@ import Edit from "./routes/edit.tsx";
 import PlayerError from "./components/playerError.tsx";
 import { detailsLoader, playerLoader } from "./utils/utils.ts";
 import ProtectedRoute from "./routes/protectedRoute.tsx";
+import DetailsError from "./components/detailsError.tsx";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,7 @@ const router = createBrowserRouter([
             path: "/details/:postId",
             element: <Details />,
             loader: detailsLoader,
+            errorElement: <DetailsError />
           },
           {
             path: "/edit/:postId",
