@@ -185,7 +185,7 @@ export default function Details() {
       <div className="grid gap-2 ">
         {commentsArr.length > 0 && commentsArr.map((comment, i) => {
           return (
-            <Comment key={i} comment={comment} />
+            <Comment key={i} comment={comment} postId={postData.id}/>
           );
         })}
       </div>
