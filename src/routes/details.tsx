@@ -20,7 +20,8 @@ import {
 import { socket } from "@/socket";
 
 export default function Details() {
-  const postData = useLoaderData() as PostType;
+  const postLoaderData = useLoaderData() as PostType;
+  const [postData, setPostData] = useState(postLoaderData);
   const [comment, setComment] = useState("");
   const [commentsArr, setCommentsArr] = useState([...postData.comments]);
   const navigate = useNavigate();
@@ -59,7 +60,6 @@ export default function Details() {
       socket.emit("submitComment", { postId: postData.id });
       setCommentsArr([...commentsArr, data.comment]);
       setComment("");
-      navigate(`/details/${postData.id}`);
     } catch (e) {
       console.log(e);
     }
@@ -100,7 +100,7 @@ export default function Details() {
       if (data.status !== 200) {
         return;
       }
-      navigate(`/details/${postData.id}`);
+      setPostData({...data.post});
     } catch (e) {
       console.log(e);
     }
@@ -185,7 +185,7 @@ export default function Details() {
       <div className="grid gap-2 ">
         {commentsArr.length > 0 && commentsArr.map((comment, i) => {
           return (
-            <Comment key={i} comment={comment} postId={postData.id}/>
+            <Comment key={i} comment={comment} postId={postData.id} setCommentsArr={setCommentsArr}/>
           );
         })}
       </div>

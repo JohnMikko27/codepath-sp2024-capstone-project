@@ -4,7 +4,6 @@ import { DateTime as dt } from "ts-luxon";
 import { UserType } from "@/utils/types";
 import { Pencil, Trash2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { useNavigate } from "react-router-dom";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,13 +18,13 @@ import {
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 
-export default function Comment({ comment, postId } : { comment: CommentType, postId: number }) {
+export default function Comment({ comment, postId, setCommentsArr } 
+  : { comment: CommentType, postId: number, setCommentsArr: React.Dispatch<React.SetStateAction<CommentType[]>> }) {
   const [author, setAuthor] = useState<UserType>({id: 0, username: "", password: "", createdAt: "", posts: [], comments: []});
   const [comm, setComm] = useState(comment);
   const formattedDate = dt.fromISO(comm.createdAt).toLocaleString(dt.DATE_SHORT);
   const [isEdit, setIsEdit] = useState(false);
   const [input, setInput] = useState(comm.content);
-  const navigate = useNavigate();
   const { toast } = useToast();
   const env = import.meta.env.PROD 
     ? import.meta.env.VITE_APP_PROD_API_URL 
@@ -69,7 +68,7 @@ export default function Comment({ comment, postId } : { comment: CommentType, po
         return;
       }
       toast({ title: data.message, className: "bg-slate-950 text-white" });
-      navigate(0);
+      setCommentsArr((commentsArr) => commentsArr.filter((c) => c.id !== comm.id));
     } catch (e) {
       console.log(e);
     }
@@ -102,7 +101,6 @@ export default function Comment({ comment, postId } : { comment: CommentType, po
   return(
     <div className="grid gap-1 bg-white border-1 border-gray-400 border-solid 
     px-4 py-2 rounded-md"
-   
     >
       <div className="flex justify-between text-xs text-gray-400">
         <div>{author && author.username}</div>
@@ -125,8 +123,8 @@ export default function Comment({ comment, postId } : { comment: CommentType, po
                     <AlertDialogHeader>
                       <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                       <AlertDialogDescription>
-                  This action cannot be undone. This will permanently delete your comment
-                  and remove your data from our servers.
+                        This action cannot be undone. This will permanently delete your comment
+                        and remove your data from our servers.
                       </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
