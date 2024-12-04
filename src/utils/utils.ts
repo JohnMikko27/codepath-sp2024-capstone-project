@@ -62,8 +62,16 @@ const uploadImage = async(userId: string, imageId: string, media: string) => {
 
 const truncate = (num: number, decimalPlaces: number) => {
   const multiplier = Math.pow(10, decimalPlaces);
-  return ((num * multiplier) / multiplier).toFixed(1);
+  const result = Math.round(num * multiplier) / multiplier;
+  if (countDecimals(result) === 0) {
+    return result.toFixed(1);
+  }
+  return result.toString();
 };
 
+const countDecimals = (num: number) => {
+  if (Math.floor(num.valueOf()) === num.valueOf()) return 0;
+  return num.toString().split(".")[1].length || 0; 
+};
 
-export { detailsLoader, uploadImage, playerLoader, truncate };
+export { detailsLoader, uploadImage, playerLoader, truncate, countDecimals };
