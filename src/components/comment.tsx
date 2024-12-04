@@ -18,8 +18,9 @@ import {
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 
-export default function Comment({ comment, postId, setCommentsArr } 
-  : { comment: CommentType, postId: number, setCommentsArr: React.Dispatch<React.SetStateAction<CommentType[]>> }) {
+// might have to implement this comment component differently because I'm passing down a setState 
+export default function Comment({ comment, postId, handleDeleteComment } 
+  : { comment: CommentType, postId: number, handleDeleteComment: (id: number) => void }) {
   const [author, setAuthor] = useState<UserType>({id: 0, username: "", password: "", createdAt: "", posts: [], comments: []});
   const [comm, setComm] = useState(comment);
   const formattedDate = dt.fromISO(comm.createdAt).toLocaleString(dt.DATE_SHORT);
@@ -68,7 +69,7 @@ export default function Comment({ comment, postId, setCommentsArr }
         return;
       }
       toast({ title: data.message, className: "bg-slate-950 text-white" });
-      setCommentsArr((commentsArr) => commentsArr.filter((c) => c.id !== comm.id));
+      handleDeleteComment(comm.id);
     } catch (e) {
       console.log(e);
     }

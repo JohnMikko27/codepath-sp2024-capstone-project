@@ -105,6 +105,10 @@ export default function Details() {
       console.log(e);
     }
   };
+
+  const handleDeleteComment = (id: number) => {
+    setCommentsArr((commentsArr) => commentsArr.filter((c) => c.id !== id));
+  };
   
   useEffect(() => {
     socket.connect();
@@ -183,9 +187,11 @@ export default function Details() {
         </form>
       </div>
       <div className="grid gap-2 ">
-        {commentsArr.length > 0 && commentsArr.map((comment, i) => {
+        {commentsArr.length > 0 && commentsArr.map((comment) => {
           return (
-            <Comment key={i} comment={comment} postId={postData.id} setCommentsArr={setCommentsArr}/>
+            <Comment key={comment.id} comment={comment} postId={postData.id} 
+              handleDeleteComment={handleDeleteComment}
+            />
           );
         })}
       </div>
