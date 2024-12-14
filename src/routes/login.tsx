@@ -18,9 +18,6 @@ export default function Login() {
     setInputs({...inputs, [e.target.name]: e.target.value});
   };
 
-  // it doesnt call the api endpoint yet so check post.authorId and localstorage.user.id is the same
-  // I SHOULD ALSO NOW ADD EMAILS FOR SIGNING UP AND LOGGIN IN
-
   const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -58,19 +55,22 @@ export default function Login() {
       <form onSubmit={handleSubmit} className="border-slate-400 border-1 grid gap-4 
       justify-self-center self-center p-8 rounded-sm">
         <div className="grid gap-2">
-          <input type="text" placeholder="username" name="username" 
+          <input type="text" placeholder="username" name="username" aria-label="Username input"
             className="px-2 py-1 border-1 border-slate-400 border-solid rounded-sm" 
             value={inputs.username} onChange={handleChange}/>
-          <input type="password" placeholder="password" name="password" 
+          <input type="password" placeholder="password" name="password" aria-label="Password input"
             className="px-2 py-1 border-1 border-slate-400 border-solid rounded-sm" 
             value={inputs.password} onChange={handleChange}/>
           {isError && <span className=" italic text-red-600">Incorrect username/password</span>}
           <div className="flex gap-10">
             <p className=" text-xs">Don&apos;t have an account yet?</p>
-            <Link to="/signup" className="text-xs text-blue-500">Create an account</Link>
+            <Link to="/signup" className="text-xs text-blue-500" 
+              aria-label="Create an account link">
+                Create an account
+            </Link>
           </div>
         </div>
-        <Button type="submit">Submit</Button>
+        <Button type="submit" aria-label="Submit login credentials button">Submit</Button>
       </form>
     </div>
   );

@@ -17,6 +17,7 @@
 //   };
 
 //   render(<Comment comment={comment} postId={2} handleDeleteComment={handleDeleteComment} />);
-//   const form = screen.getByRole("form");
-//   expect(form).
+//   const form = screen.getByTestId("commentsContent");
+//   const editBtn = screen.getAllByTestId
+//   expect(form).toBeInTheDocument();
 // });
