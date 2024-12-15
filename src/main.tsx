@@ -32,12 +32,12 @@ const router = createBrowserRouter([
         element: <Signup />
       },
       {
+        path: "/",
+        element: <Home />
+      },
+      {
         element: <ProtectedRoute />,
         children: [
-          {
-            path: "/",
-            element: <Home />
-          },
           {
             path: "/players/:playerName",
             element: <Player />,

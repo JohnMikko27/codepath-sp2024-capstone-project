@@ -151,7 +151,7 @@ export default function Details() {
                 ? "#3452eb" : "white"}
               onClick={handleUpvote}
               aria-label="Like post button"
-              tabindex="0"
+              tabIndex="0"
             />
             <div>{postData.upvotes}</div>
           </div>
