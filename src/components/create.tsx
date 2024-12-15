@@ -74,7 +74,7 @@ const Create = () => {
   return (
     <div className="row-start-2 row-end-8 grid justify-items-center items-center ">
       { isLoading && <LoadingSpinnerModal />}
-      <form onSubmit={handleSubmit} 
+      <form onSubmit={handleSubmit} role="form" aria-label="Create post form"
         className="flex flex-col border-solid border-slate-400 border-1 p-4 gap-4 rounded-sm w-1/2 bg-white">
         <input type="text" name="title" placeholder="Title" value={inputs.title} 
           onChange={handleChange} className="border-slate-400 border-solid border-1 px-2 py-1 rounded-sm"/>
@@ -86,11 +86,15 @@ const Create = () => {
         <div className="flex justify-between gap-4">
           <Button type="button" onClick={() => navigate(-1)}
             className="border-slate-400 border-solid border-1 px-2 py-1 
-              transition-all duration-200 hover:underline rounded-sm flex-1">
-                Cancel
+              transition-all duration-200 hover:underline rounded-sm flex-1"
+            aria-label="Cancel create post button"
+          >
+            Cancel
           </Button>
           <Button type="submit" 
-            className="bg-green-700 text-white hover:bg-green-600 flex-1">
+            className="bg-green-700 text-white hover:bg-green-600 flex-1"
+            aria-label="Submit create post button"
+          >
             Post
           </Button>
         </div>

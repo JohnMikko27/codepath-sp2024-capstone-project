@@ -45,17 +45,25 @@ export default function Signup() {
       justify-self-center self-center p-8 rounded-sm">
         <div className="grid gap-2">
           <input value={inputs.username} type="text" placeholder="username" name="username" 
-            className="px-2 py-1 border-1 border-slate-400 border-solid rounded-sm" onChange={handleChange}/>
+            className="px-2 py-1 border-1 border-slate-400 border-solid rounded-sm" 
+            onChange={handleChange} aria-label="Username input"
+          />
           <input value={inputs.password} type="password" placeholder="password" name="password" 
-            className="px-2 py-1 border-1 border-slate-400 border-solid rounded-sm" onChange={handleChange}/>
+            className="px-2 py-1 border-1 border-slate-400 border-solid rounded-sm" 
+            onChange={handleChange} aria-label="Password input"
+          />
           <input value={inputs.confirmPassword} type="password" placeholder="confirm password" name="confirmPassword" 
-            className="px-2 py-1 border-1 border-slate-400 border-solid rounded-sm" onChange={handleChange}/>
+            className="px-2 py-1 border-1 border-slate-400 border-solid rounded-sm" 
+            onChange={handleChange} aria-label="Confirm password input"
+          />
         </div>
         <div className="flex justify-between gap-4">
           <p className=" text-xs">Have an account already?</p>
-          <Link to="/login" className="text-xs text-blue-500">Login to your account</Link>
+          <Link to="/login" className="text-xs text-blue-500" aria-label="Login to your account link">
+            Login to your account
+          </Link>
         </div>
-        <Button type="submit">Submit</Button>
+        <Button type="submit" aria-label="Submit signup credentials button">Submit</Button>
       </form>
     </div>
   );

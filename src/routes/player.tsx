@@ -53,7 +53,6 @@ export default function Player() {
                 <CardTitle>{playerInfo.full_name}</CardTitle>
                 <CardDescription>Name</CardDescription>
               </div>
-              
               <div>
                 <CardTitle>{playerInfo.height}</CardTitle>
                 <CardDescription>Height</CardDescription>

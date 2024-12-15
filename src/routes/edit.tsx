@@ -47,23 +47,26 @@ export default function Edit() {
   return (
     <div className="flex justify-center">
       { isLoading && <LoadingSpinnerModal /> }
-      <form onSubmit={handleSubmit}
+      <form onSubmit={handleSubmit} role="form" aria-label="Edit post form"
         className="flex flex-col border-solid border-slate-400 border-1 p-4 gap-4
           rounded-sm w-1/2 bg-white"
       >
-        <input type="text" name="title" placeholder="Title" value={inputs.title}
+        <input type="text" name="title" placeholder="Title" value={inputs.title} aria-label="Title input"
           onChange={handleChange} className="border-slate-400 border-solid border-1 px-2 py-1 rounded-sm"/>
         <textarea name="content" id="content" cols={30} rows={10} placeholder="content (optional)"
-          value={inputs.content} onChange={handleChange}
+          value={inputs.content} onChange={handleChange} aria-label="Description input"
           className="border-slate-400 border-solid border-1 px-2 py-1 rounded-sm">
         </textarea>
         <div className="flex justify-between gap-4">
           <Button type="button" variant="outline" onClick={() => navigate(-1)}
-            className="flex-1">
+            className="flex-1" aria-label="Cancel edit post button" 
+          >
             Cancel
           </Button>
           <Button type="submit"
-            className=" bg-green-600 text-white hover:bg-green-500 flex-1">
+            className=" bg-green-600 text-white hover:bg-green-500 flex-1"
+            aria-label="Submit edited post button"
+          >
               Update
           </Button>
         </div>

@@ -20,7 +20,8 @@ import {
 import { socket } from "@/socket";
 
 export default function Details() {
-  const postData = useLoaderData() as PostType;
+  const postLoaderData = useLoaderData() as PostType;
+  const [postData, setPostData] = useState(postLoaderData);
   const [comment, setComment] = useState("");
   const [commentsArr, setCommentsArr] = useState([...postData.comments]);
   const navigate = useNavigate();
@@ -59,7 +60,6 @@ export default function Details() {
       socket.emit("submitComment", { postId: postData.id });
       setCommentsArr([...commentsArr, data.comment]);
       setComment("");
-      navigate(`/details/${postData.id}`);
     } catch (e) {
       console.log(e);
     }
@@ -100,10 +100,14 @@ export default function Details() {
       if (data.status !== 200) {
         return;
       }
-      navigate(`/details/${postData.id}`);
+      setPostData({...data.post});
     } catch (e) {
       console.log(e);
     }
+  };
+
+  const handleDeleteComment = (id: number) => {
+    setCommentsArr((commentsArr) => commentsArr.filter((c) => c.id !== id));
   };
   
   useEffect(() => {
@@ -134,8 +138,6 @@ export default function Details() {
         <div className="text-2xl font-semibold">{postData.title}</div>
         <div className="text-xl">{postData.content}</div>
         { 
-        // sometimes it doesn't render the image, what should i do in this case?
-
           postData.imgUrl && <img src={postData.imgUrl} alt={`Image uploaded by ${postData.author.username}`} 
             className="w-32"
           /> 
@@ -148,17 +150,21 @@ export default function Details() {
                 && postData.usersLiked.includes(JSON.parse(localStorage.getItem("user")!).id) 
                 ? "#3452eb" : "white"}
               onClick={handleUpvote}
+              aria-label="Like post button"
+              tabIndex="0"
             />
             <div>{postData.upvotes}</div>
           </div>
           <div className={`gap-4 ${postData.authorId !== currentUser.id ? "hidden" : "flex"}`}>
             {postData && 
-            <Link to={`/edit/${postData.id}`}>
+            <Link to={`/edit/${postData.id}`} aria-label="Edit post button">
               <Pencil />
             </Link>}
             {postData && 
             <AlertDialog>
-              <AlertDialogTrigger><Trash2 className="hover:cursor-pointer"/></AlertDialogTrigger>
+              <AlertDialogTrigger>
+                <Trash2 className="hover:cursor-pointer" aria-label="Delete post button"/>
+              </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
                   <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
@@ -178,16 +184,19 @@ export default function Details() {
         </div>
       </div>
       <div>
-        <form onSubmit={handleComment} className="grid gap-2">
-          <input type="text" value={comment} onChange={handleChange} placeholder="Add a comment" 
+        <form onSubmit={handleComment} className="grid gap-2" role="form" aria-label="Create comment form"> 
+          <input type="text" value={comment} onChange={handleChange} 
+            placeholder="Add a comment" aria-label="Comment input"
             className=" h-12 border-1 border-slate-400 border-solid px-4 py-2 rounded-3xl"/>
-          <Button type="submit" className="">Comment</Button>
+          <Button type="submit" aria-label="Submit comment button">Comment</Button>
         </form>
       </div>
       <div className="grid gap-2 ">
-        {commentsArr.length > 0 && commentsArr.map((comment, i) => {
+        {commentsArr.length > 0 && commentsArr.map((comment) => {
           return (
-            <Comment key={i} comment={comment} />
+            <Comment key={comment.id} comment={comment} postId={postData.id} 
+              handleDeleteComment={handleDeleteComment}
+            />
           );
         })}
       </div>
