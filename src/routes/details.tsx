@@ -150,17 +150,21 @@ export default function Details() {
                 && postData.usersLiked.includes(JSON.parse(localStorage.getItem("user")!).id) 
                 ? "#3452eb" : "white"}
               onClick={handleUpvote}
+              aria-label="Like post button"
+              tabindex="0"
             />
             <div>{postData.upvotes}</div>
           </div>
           <div className={`gap-4 ${postData.authorId !== currentUser.id ? "hidden" : "flex"}`}>
             {postData && 
-            <Link to={`/edit/${postData.id}`}>
+            <Link to={`/edit/${postData.id}`} aria-label="Edit post button">
               <Pencil />
             </Link>}
             {postData && 
             <AlertDialog>
-              <AlertDialogTrigger><Trash2 className="hover:cursor-pointer"/></AlertDialogTrigger>
+              <AlertDialogTrigger>
+                <Trash2 className="hover:cursor-pointer" aria-label="Delete post button"/>
+              </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
                   <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
@@ -180,10 +184,11 @@ export default function Details() {
         </div>
       </div>
       <div>
-        <form onSubmit={handleComment} className="grid gap-2">
-          <input type="text" value={comment} onChange={handleChange} placeholder="Add a comment" 
+        <form onSubmit={handleComment} className="grid gap-2" role="form" aria-label="Create comment form"> 
+          <input type="text" value={comment} onChange={handleChange} 
+            placeholder="Add a comment" aria-label="Comment input"
             className=" h-12 border-1 border-slate-400 border-solid px-4 py-2 rounded-3xl"/>
-          <Button type="submit" className="">Comment</Button>
+          <Button type="submit" aria-label="Submit comment button">Comment</Button>
         </form>
       </div>
       <div className="grid gap-2 ">

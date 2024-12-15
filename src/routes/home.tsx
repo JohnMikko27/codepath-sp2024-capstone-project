@@ -75,11 +75,13 @@ export default function Home() {
   return (
     <div className={"px-10 pb-10 grid gap-4"} >
       <div className="flex gap-6">
-        <Input onChange={handleChange} value={input} placeholder="Search" className=" flex-[.4]"></Input>
+        <Input onChange={handleChange} value={input} placeholder="Search" 
+          className="flex-[.4]" aria-label="Search input">
+        </Input>
         <div className="flex gap-2">
-          <Button onClick={() => setFilter("latest")}>Latest</Button>
-          <Button onClick={() => setFilter("oldest")}>Oldest</Button>
-          <Button onClick={() => setFilter("popular")}>Popular</Button>
+          <Button onClick={() => setFilter("latest")} aria-label="Latest posts filter">Latest</Button>
+          <Button onClick={() => setFilter("oldest")} aria-label="Oldest posts filter">Oldest</Button>
+          <Button onClick={() => setFilter("popular")} aria-label="Most popular posts filter">Popular</Button>
         </div>
       </div>
       <div className="grid gap-2">

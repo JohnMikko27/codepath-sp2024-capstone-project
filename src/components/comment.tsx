@@ -104,14 +104,14 @@ export default function Comment({ comment, postId, handleDeleteComment }
     px-4 py-2 rounded-md"
     >
       <div className="flex justify-between text-xs text-gray-400">
-        <div>{author && author.username}</div>
-        <div>{formattedDate}</div>
+        <p>{author && author.username}</p>
+        <p>{formattedDate}</p>
       </div>
       {
         !isEdit 
           ?
           <div className="flex justify-between">
-            <div>{comm.content}</div>
+            <p>{comm.content}</p>
             <div className="flex items-center gap-4">
               <Pencil size={18} onClick={() => setIsEdit(true)} className="hover:cursor-pointer"/>
               { 
@@ -138,11 +138,15 @@ export default function Comment({ comment, postId, handleDeleteComment }
             </div>
           </div>
           : 
-          <form className="flex flex-col gap-2" onSubmit={handleEdit}>
-            <Input value={input} onChange={(e) => setInput(e.target.value)} />
+          <form className="flex flex-col gap-2" onSubmit={handleEdit} role="form" aria-label="Edit comment form">
+            <Input value={input} onChange={(e) => setInput(e.target.value)} aria-label="Comment input"/>
             <div className="flex justify-end gap-1">
-              <Button type="button" variant={"outline"} onClick={() => setIsEdit(false)}>Cancel</Button>
-              <Button type="submit" onClick={handleEdit}>Submit</Button>
+              <Button type="button" variant={"outline"} onClick={() => setIsEdit(false)}
+                aria-label="Cancel comment button"
+              >
+                Cancel
+              </Button>
+              <Button type="submit" onClick={handleEdit} aria-label="Submit comment button">Submit</Button>
             </div>
           </form>
       }
