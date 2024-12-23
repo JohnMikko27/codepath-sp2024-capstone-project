@@ -19,13 +19,18 @@ Live Demo: https://hoop-talk.netlify.app/
 - Vite
 - Netlify
 
+## APIs
+- CRUD and auth API: https://github.com/JohnMikko27/hooptalk-api
+- Stats API: https://github.com/JohnMikko27/hoopstats
+- nba_api (for my data): https://github.com/swar/nba_api
+
 ## CI/CD Pipeline
 
 This app is hosted with Netlify and any pushes to the main branch will automatically update the app
 
-## Installation
-
-First clone the project on your local machine and cd into:
+## How to Contribute/Installation
+First fork the project.
+Next clone the project on your local machine and cd into the project:
 
 ```
 git clone <url>
