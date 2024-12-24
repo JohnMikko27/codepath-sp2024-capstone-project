@@ -27,7 +27,9 @@ export interface CommentType {
     author: UserType,
     authorId: number,
     post: PostType,
-    postId: number
+    postId: number,
+    usersLiked: number[],
+    upvotes: number
 }
 
 export interface YearlyStats {

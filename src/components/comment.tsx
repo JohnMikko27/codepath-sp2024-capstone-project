@@ -2,7 +2,7 @@ import { CommentType } from "@/utils/types";
 import React, { useState, useEffect } from "react";
 import { DateTime as dt } from "ts-luxon";
 import { UserType } from "@/utils/types";
-import { Pencil, Trash2 } from "lucide-react";
+import { ThumbsUp, Pencil, Trash2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import {
   AlertDialog,
@@ -99,6 +99,27 @@ export default function Comment({ comment, postId, handleDeleteComment }
     }
   };
 
+  const handleUpvote = async() => {
+    const token = localStorage.getItem("token");
+    try {
+      const response = await fetch(env + `/posts/${postId}/comments/${comm.id}/like`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization" : `${token}`,
+        }, 
+      });
+      const data = await response.json();
+      if (data.status !== 200) {
+        return;
+      }
+      console.log(data);
+      setComm({ ...data.comment });
+    } catch(e) {
+      console.log(e);
+    }
+  };
+
   return(
     <div className="grid gap-1 bg-white border-1 border-gray-400 border-solid 
     px-4 py-2 rounded-md"
@@ -113,12 +134,33 @@ export default function Comment({ comment, postId, handleDeleteComment }
           <div className="flex justify-between">
             <p>{comm.content}</p>
             <div className="flex items-center gap-4">
-              <Pencil size={18} onClick={() => setIsEdit(true)} className="hover:cursor-pointer"/>
+              <div className="flex items-center gap-1">
+                <ThumbsUp 
+                  onClick={handleUpvote} 
+                  className="hover:cursor-pointer" 
+                  tabIndex={0}
+                  aria-label="Upvote comment button"
+                  fill={`${comm.usersLiked.includes(JSON.parse(localStorage.getItem("user")!).id) 
+                    ? "#3452eb"
+                    : "white"}`}
+                />
+                <p>{comm.upvotes}</p>
+              </div>
+              <Pencil 
+                size={18} 
+                onClick={() => setIsEdit(true)} 
+                className="hover:cursor-pointer"
+                tabIndex={0}
+                aria-label="Edit comment button"
+              />
               { 
                 <AlertDialog>
                   <AlertDialogTrigger>
-                    <Trash2 size={18} className="hover:cursor-pointer"/>
-                
+                    <Trash2 
+                      size={18} 
+                      className="hover:cursor-pointer" 
+                      aria-label="Delete comment button"
+                    />
                   </AlertDialogTrigger>
                   <AlertDialogContent>
                     <AlertDialogHeader>
