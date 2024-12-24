@@ -26,8 +26,8 @@ const Nav = () => {
       <Link to="/" className="text-2xl hover:underline" aria-label="Home page link">HoopTalk</Link>
       <div className="px-30">
         <form onSubmit={handleSubmit} className="flex justify-self-center w-52">
-          <Input value={input} onChange={handleChange} className="rounded-full"
-            placeholder="Search for a player's stats..."/>
+          <Input value={input} onChange={handleChange} className="rounded-full text-center text-xxs"
+            placeholder="Search for an NBA player's stats..."/>
         </form>
       </div>
       <div className="flex gap-12 items-center">
