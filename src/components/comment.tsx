@@ -26,6 +26,7 @@ export default function Comment({ comment, postId, handleDeleteComment }
   const formattedDate = dt.fromISO(comm.createdAt).toLocaleString(dt.DATE_SHORT);
   const [isEdit, setIsEdit] = useState(false);
   const [input, setInput] = useState(comm.content);
+  const currentUser = JSON.parse(localStorage.getItem("user")!);
   const { toast } = useToast();
   const env = import.meta.env.PROD 
     ? import.meta.env.VITE_APP_PROD_API_URL 
@@ -113,7 +114,6 @@ export default function Comment({ comment, postId, handleDeleteComment }
       if (data.status !== 200) {
         return;
       }
-      console.log(data);
       setComm({ ...data.comment });
     } catch(e) {
       console.log(e);
@@ -146,36 +146,39 @@ export default function Comment({ comment, postId, handleDeleteComment }
                 />
                 <p>{comm.upvotes}</p>
               </div>
-              <Pencil 
-                size={18} 
-                onClick={() => setIsEdit(true)} 
-                className="hover:cursor-pointer"
-                tabIndex={0}
-                aria-label="Edit comment button"
-              />
-              { 
-                <AlertDialog>
-                  <AlertDialogTrigger>
-                    <Trash2 
-                      size={18} 
-                      className="hover:cursor-pointer" 
-                      aria-label="Delete comment button"
-                    />
-                  </AlertDialogTrigger>
-                  <AlertDialogContent>
-                    <AlertDialogHeader>
-                      <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                      <AlertDialogDescription>
-                        This action cannot be undone. This will permanently delete your comment
-                        and remove your data from our servers.
-                      </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                      <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction variant="destructive" onClick={handleDelete}>Delete</AlertDialogAction>
-                    </AlertDialogFooter>
-                  </AlertDialogContent>
-                </AlertDialog>
+              { comm.authorId === currentUser.id &&
+                <div className="flex gap-4">
+                  <Pencil
+                    size={18}
+                    onClick={() => setIsEdit(true)}
+                    className="hover:cursor-pointer"
+                    tabIndex={0}
+                    aria-label="Edit comment button"
+                  />
+                
+                  <AlertDialog>
+                    <AlertDialogTrigger>
+                      <Trash2
+                        size={18}
+                        className="hover:cursor-pointer"
+                        aria-label="Delete comment button"
+                      />
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                          This action cannot be undone. This will permanently delete your comment
+                          and remove your data from our servers.
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction variant="destructive" onClick={handleDelete}>Delete</AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
+                </div>
               }
             </div>
           </div>
